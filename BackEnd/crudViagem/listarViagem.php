@@ -21,7 +21,9 @@ if ($result->num_rows > 0) {
             'destino' => $row['destino'],
             'horario_de_partida' => $row['horario_de_partida'],
             'data_de_partida' => $row['data_de_partida'],
-            'preco' => $row['preco']
+            'assentos' => $row['assentos'],
+            'preco' => $row['preco'],
+            'status' => $row['status']
         ];
     }
 }
