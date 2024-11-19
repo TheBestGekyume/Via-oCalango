@@ -7,7 +7,7 @@ export function Login({ setToken }) {
     const navigate = useNavigate();
 
     const logarUsuario = () => {
-        axios.post('http://localhost/ViacaoCalango/BackEnd/crudViagem/autenticarUsuario.php', {
+        axios.post('http://localhost/ViacaoCalango/BackEnd/crudUsuario/autenticarUsuario.php', {
             email: userCredentials.login,
             senha: userCredentials.senha
         })
