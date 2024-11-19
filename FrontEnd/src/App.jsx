@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home.jsx';
 import { Login } from './pages/Login.jsx';
 import { NavBar } from './components/NavBar';
-import './App.css';
+import './app.scss';
 
 export function App() {
   const [token, setToken] = useState(window.sessionStorage.getItem('token'));
