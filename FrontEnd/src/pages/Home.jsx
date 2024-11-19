@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export function Home({ token }) {
+export function Home() {
+  const token = window.sessionStorage.getItem("token");
+  const nomeUsuario = window.sessionStorage.getItem("nome");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,7 +14,7 @@ export function Home({ token }) {
 
   if(token){
     return (
-        <div>Homeeeee</div>
+        <div>Bem-vindo, {nomeUsuario}</div>
       );
   }
 }
