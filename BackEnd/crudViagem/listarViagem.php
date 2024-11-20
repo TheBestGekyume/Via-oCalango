@@ -14,18 +14,22 @@ $viagens = [];
 // Verifica se há resultados e popula o array de viagens
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Adiciona os dados do banco de dados ao array
+        // Decodifica a coluna 'assentos' que está armazenada como string JSON
+        $assentos = json_decode($row['assentos'], true); // Transforma a string JSON em um array de objetos
+        
+        // Adiciona os dados do banco de dados ao array, com 'assentos' já como um array de objetos
         $viagens[] = [
             'id_viagem' => $row['id_viagem'],
             'origem' => $row['origem'],
             'destino' => $row['destino'],
             'horario_de_partida' => $row['horario_de_partida'],
             'data_de_partida' => $row['data_de_partida'],
-            'preco' => $row['preco']
+            'assentos' => $assentos,  // Agora 'assentos' é um array de objetos
+            'preco' => $row['preco'],
+            'status' => $row['status']
         ];
     }
 }
-
 
 // Fecha a conexão com o banco de dados
 $conn->close();
