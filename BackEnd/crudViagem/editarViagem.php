@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     // Verifica se os campos necessários estão definidos
     if (isset($data['id_viagem'], $data['origem'], $data['destino'], 
               $data['horario_de_partida'], $data['data_de_partida'], 
-              $data['preco'], $data['status'], $data['assentos_indisponiveis'])) {
+              $data['preco'])) {
 
         $id_viagem = $data['id_viagem'];
         $origem = $data['origem'];
@@ -21,8 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         $horario_de_partida = $data['horario_de_partida'];
         $data_de_partida = $data['data_de_partida'];
         $preco = $data['preco'];
-        $status = $data['status'];
-        $assentos_indisponiveis = $data['assentos_indisponiveis'];
+
 
         // Obtém os assentos atuais do banco de dados
         $sql = "SELECT assentos FROM viagem WHERE id_viagem = $id_viagem";
@@ -30,20 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $assentos = json_decode($row['assentos'], true);
-
-            // Atualiza os assentos que ficaram indisponíveis
-            foreach ($assentos_indisponiveis as $assento_indisponivel) {
-                foreach ($assentos as &$assento) {
-                    if ($assento['nro_assento'] === $assento_indisponivel['nro_assento']) {
-                        $assento['disponivel'] = false; // Marca o assento como indisponível
-                        break;
-                    }
-                }
-            }
-
-            // Converte os assentos de volta para JSON
-            $assentos_json = json_encode($assentos);
 
             // Monta a query de atualização dos dados da viagem
             $sql_update = "UPDATE viagem 
@@ -51,9 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                                destino = '$destino', 
                                horario_de_partida = '$horario_de_partida', 
                                data_de_partida = '$data_de_partida', 
-                               preco = '$preco', 
-                               status = '$status', 
-                               assentos = '$assentos_json'
+                               preco = '$preco'
                            WHERE id_viagem = $id_viagem";
 
             // Executa a query de atualização

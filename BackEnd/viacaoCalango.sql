@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20/11/2024 às 00:56
+-- Tempo de geração: 20/11/2024 às 04:11
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -50,17 +50,17 @@ INSERT INTO `usuario` (`id_usuario`, `nome`, `senha`, `email`, `tipo`) VALUES
 --
 
 CREATE TABLE `usuario_viagem` (
+  `usuario_viagem_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
-  `viagem_id` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL
+  `viagem_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `usuario_viagem`
 --
 
-INSERT INTO `usuario_viagem` (`usuario_id`, `viagem_id`, `status`) VALUES
-(1, 1, 1);
+INSERT INTO `usuario_viagem` (`usuario_viagem_id`, `usuario_id`, `viagem_id`) VALUES
+(1, 2, 18);
 
 -- --------------------------------------------------------
 
@@ -84,10 +84,10 @@ CREATE TABLE `viagem` (
 --
 
 INSERT INTO `viagem` (`id_viagem`, `origem`, `destino`, `horario_de_partida`, `data_de_partida`, `assentos`, `preco`, `status`) VALUES
-(1, 'Rio de Janeiro', 'São Paulo', '08:00', '2024-11-25', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":false},{\"nro_assento\":\"B1\",\"disponivel\":true}]', 150.5, 1),
+(1, 'hell de janero', 'Sp', '08:00', '2024-11-25', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":false},{\"nro_assento\":\"B1\",\"disponivel\":true}]', 30000.5, 1),
 (11, 'testerrr', 'teste', '10:00:00', '2077-11-20', '0', 2.75, 0),
 (17, 'testerrr', 'teste', '10:00:00', '2077', '100', 2, 1),
-(18, 'Rio de Janeiro', 'São Paulo', '08:00', '2024-11-25', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"A6\",\"disponivel\":true},{\"nro_assento\":\"A7\",\"disponivel\":true},{\"nro_assento\":\"A8\",\"disponivel\":true},{\"nro_assento\":\"A9\",\"disponivel\":true},{\"nro_assento\":\"A10\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":true},{\"nro_assento\":\"B2\",\"disponivel\":true},{\"nro_assento\":\"B3\",\"disponivel\":true},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true},{\"nro_assento\":\"B6\",\"disponivel\":true},{\"nro_assento\":\"B7\",\"disponivel\":true},{\"nro_assento\":\"B8\",\"disponivel\":true},{\"nro_assento\":\"B9\",\"disponivel\":true},{\"nro_assento\":\"B10\",\"disponivel\":true}]', 150.5, 1);
+(18, 'Rio de Janeiro', 'São Paulo', '08:00', '2024-11-25', '[{\"nro_assento\":\"A1\",\"disponivel\":false},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"A6\",\"disponivel\":true},{\"nro_assento\":\"A7\",\"disponivel\":true},{\"nro_assento\":\"A8\",\"disponivel\":true},{\"nro_assento\":\"A9\",\"disponivel\":true},{\"nro_assento\":\"A10\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":true},{\"nro_assento\":\"B2\",\"disponivel\":true},{\"nro_assento\":\"B3\",\"disponivel\":false},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true},{\"nro_assento\":\"B6\",\"disponivel\":true},{\"nro_assento\":\"B7\",\"disponivel\":true},{\"nro_assento\":\"B8\",\"disponivel\":true},{\"nro_assento\":\"B9\",\"disponivel\":true},{\"nro_assento\":\"B10\",\"disponivel\":true}]', 150.5, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -103,8 +103,9 @@ ALTER TABLE `usuario`
 -- Índices de tabela `usuario_viagem`
 --
 ALTER TABLE `usuario_viagem`
-  ADD PRIMARY KEY (`usuario_id`,`viagem_id`),
-  ADD KEY `fk_viagem` (`viagem_id`);
+  ADD PRIMARY KEY (`usuario_viagem_id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `viagem_id` (`viagem_id`);
 
 --
 -- Índices de tabela `viagem`
@@ -123,6 +124,12 @@ ALTER TABLE `usuario`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de tabela `usuario_viagem`
+--
+ALTER TABLE `usuario_viagem`
+  MODIFY `usuario_viagem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `viagem`
 --
 ALTER TABLE `viagem`
@@ -136,8 +143,8 @@ ALTER TABLE `viagem`
 -- Restrições para tabelas `usuario_viagem`
 --
 ALTER TABLE `usuario_viagem`
-  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_viagem` FOREIGN KEY (`viagem_id`) REFERENCES `viagem` (`id_viagem`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `usuario_viagem_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `usuario_viagem_ibfk_2` FOREIGN KEY (`viagem_id`) REFERENCES `viagem` (`id_viagem`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

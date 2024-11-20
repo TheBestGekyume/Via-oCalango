@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         $id_viagem = $data['id_viagem'];
         $assentos_indisponiveis = $data['assentos_indisponiveis'];
         $usuario_id = $data['usuario_id'];
-        $status = true;  // Supondo que o status seja verdadeiro quando o usuário estiver relacionado à viagem
 
         // Atualiza os assentos na viagem
         $sql = "SELECT assentos FROM viagem WHERE id_viagem = $id_viagem";
@@ -49,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                 echo "Assentos atualizados com sucesso! ";
 
                 // Inserir dados na tabela intermediária usuario_viagem
-                $sql_insert = "INSERT INTO usuario_viagem (usuario_id, viagem_id, status) 
-                               VALUES ($usuario_id, $id_viagem, $status)";
+                $sql_insert = "INSERT INTO usuario_viagem (usuario_id, viagem_id) 
+                               VALUES ($usuario_id, $id_viagem)";
 
                 if ($conn->query($sql_insert) === TRUE) {
                     echo "Usuário relacionado à viagem com sucesso!";
