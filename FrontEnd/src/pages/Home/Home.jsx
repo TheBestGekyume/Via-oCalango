@@ -8,7 +8,7 @@ export function Home() {
 
   useEffect(() => {
     if (!token) {
-      navigate('/');
+      navigate('/login');
     }
   }, [token, navigate]);
 

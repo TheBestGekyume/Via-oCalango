@@ -1,11 +1,13 @@
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
-$colorOrange: #D9D9D9;
+$amarelo: #FFB803;
 $colorBlack: #4F4F4F;
+$fontTamanho: 1.2rem;
 
-.container-main{
-    background-color: $colorBlack;
-}
+// .container-main{
+//     background-color: $colorBlack;
+// }
