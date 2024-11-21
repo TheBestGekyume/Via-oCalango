@@ -14,7 +14,7 @@ export function NavBar({ setToken }) {
     <nav className="barra-lateral">
       <ul>
         <li>
-          <Link to="/home">Home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li onClick={logoutUser} style={{ cursor: 'pointer' }}>
           Sair

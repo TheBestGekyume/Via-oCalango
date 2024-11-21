@@ -1,7 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin: *"); // Permite requisições de qualquer origem
-header("Access-Control-Allow-Methods: POST, OPTIONS"); // Permite os métodos POST e OPTIONS
-header("Access-Control-Allow-Headers: Content-Type"); // Permite o cabeçalho Content-Type
+header("Access-Control-Allow-Origin: *"); 
+header("Access-Control-Allow-Methods: POST, OPTIONS, GET, PUT"); 
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); 
 
 $conn = new mysqli("localhost", "root", "", "viacaocalango");
 
