@@ -16,7 +16,7 @@ export function About() {
 
     if (token) {
         return (
-            <div id='about' className='p-3 vw-100 h-100 text-white'>
+            <div id='about' className='text-white'>
                 <section className='container-fluid my-5'>
                     <div class="row gap-4">
                         <div className='col-4 text-center'>
@@ -32,7 +32,7 @@ export function About() {
                     </div>
                 </section>
 
-                <section className='container-fluid mt-5 pt-5'>
+                <section className='container-fluid mt-5 pt-4'>
                     <div class="row gap-4">
                         <div className='col-2'></div>
 
@@ -46,11 +46,9 @@ export function About() {
                             <h2>NOSSA MISSÃO</h2>
                             <p>A Viação Calango é uma empresa de ônibus interestadual dedicada a fornecer serviços de transporte confiáveis e seguros, conectando pessoas e comunidades em todo o país. Nossa missão é oferecer viagens de qualidade, pontuais e acessíveis, priorizando a segurança e a satisfação dos passageiros. Estamos comprometidos em ser uma empresa de referência no setor, contribuindo para a mobilidade e o desenvolvimento do país.</p>
                         </div>
-
                     </div>
                 </section>
 
-   
             </div>
         );
     }
