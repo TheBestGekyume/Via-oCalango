@@ -1,40 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Card.scss'; // Estilos para os cards, opcional
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './card.scss';
+
 
 export function Card() {
     const [viagens, setViagens] = useState([]); 
+    const [carregando, setCarregando] = useState(true); 
     const [erro, setErro] = useState(null);
 
     useEffect(() => {
-        // Faz a requisição para listar as viagens ao montar o componente
         axios.get('http://localhost/viacaocalango/BackEnd/crudViagem/listarViagem.php')
             .then((response) => {
-                // Supondo que a API retorna um array de viagens
                 setViagens(response.data); 
+                setCarregando(false);
             })
             .catch((error) => {
                 console.error("Erro ao buscar as viagens:", error);
                 setErro("Não foi possível carregar as viagens.");
+                setCarregando(false);
             });
-    }, []); // Executa apenas uma vez ao montar o componente
+    }, []);
 
     return (
-        <div className="card-container">
-            {erro && <p className="error-message">{erro}</p>} {/* Exibe mensagem de erro, se houver */}
-            {viagens.length > 0 ? (
-                viagens.map((viagem, index) => (
-                    <div className="card" key={index}>
-                        <img src={viagem.imgUrl} alt={`${viagem.origem} - ${viagem.destino}`} className="card-image" />
-                        <div className="card-content">
-                            <h3>{viagem.origem} → {viagem.destino}</h3>
-                            <p>Preço: R$ {viagem.preco.toFixed(2)}</p>
-                        </div>
+        <div id="card" className="container px-3">
+            <div className="row">
+                {erro && (
+                    <div className="col-12">
+                        <div className="alert alert-danger text-center">{erro}</div>
                     </div>
-                ))
-            ) : (
-                <p>Carregando viagens...</p> // Mensagem enquanto os dados são carregados
-            )}
+                )}
+                {carregando ? (
+                    <div className="col-12 text-center">
+                        <p>Carregando viagens...</p>
+                    </div>
+                ) : (
+                    viagens.length > 0 ? (
+                        viagens.map((viagem, index) => (
+                            <div className="col-md-6 my-4" key={index}>
+                                <div className="card h-100 border- bg-transparent d-flex">
+                                    <img
+                                        src={viagem.imgUrl}
+                                        className="card-img rounded-5 height-limit"
+                                        alt={`${viagem.origem} - ${viagem.destino}`}
+                                    />
+                                    <div className="card-body flex-grow-0 flex-fill bg-warning mt-3 rounded-5">
+                                        <h5 className="card-title text-white ">{viagem.origem} → {viagem.destino}</h5>
+                                        <p className="card-text fw-bolder">
+                                            Data: {viagem.data_de_partida}<br />
+                                            Horário: {viagem.horario_de_partida}<br />
+                                            Preço: R$ {parseFloat(viagem.preco).toFixed(2)}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="col-12 text-center">
+                            <p>Não há viagens disponíveis.</p>
+                        </div>
+                    )
+                )}
+            </div>
         </div>
     );
 }

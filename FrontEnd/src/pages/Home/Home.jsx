@@ -20,7 +20,7 @@ export function Home() {
         <button className='btn btn-lg text-white mb-5' type='button'>
           <h3>COMPRE ANTECIPADO E GANHE 10% DE DESCONTO</h3>
         </button>
-        <section className='mx-5 mt-5'>
+        <section className='mx-5 rounded-4'>
           <Card />
         </section>
       </div>
