@@ -1,0 +1,17 @@
+@use '../../app.scss' as *;
+
+div#home{
+    button{
+        background-color: $amarelo;
+        opacity: 0.75;
+        transition: 250ms;
+        &:hover{
+            opacity: 1;
+            scale: 1.05;
+        }
+    }
+
+    section{
+        border: 1px solid $amarelo;
+    }
+}

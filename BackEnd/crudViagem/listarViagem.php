@@ -17,7 +17,6 @@ if ($result->num_rows > 0) {
         // Decodifica a coluna 'assentos' que está armazenada como string JSON
         $assentos = json_decode($row['assentos'], true); // Transforma a string JSON em um array de objetos
         
-        // Adiciona os dados do banco de dados ao array, com 'assentos' já como um array de objetos
         $viagens[] = [
             'id_viagem' => $row['id_viagem'],
             'origem' => $row['origem'],
