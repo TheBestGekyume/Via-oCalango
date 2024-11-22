@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home/Home.jsx';
 import { Login } from './pages/Login/Login.jsx';
 import { NavBar } from './components/NavBar';
+import { About } from './pages/About/About.jsx';
+import { Footer } from './components/Footer/Footer.jsx';
 import './app.scss';
 
 export function App() {
@@ -15,10 +17,13 @@ export function App() {
         {token && <NavBar setToken={setToken} />}
 
         <Routes>
-          <Route path="/login" element={<Login setToken={setToken} />} />
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login setToken={setToken} />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </main>
+
+      {token && <Footer/>}  
     </Router>
   );
 }

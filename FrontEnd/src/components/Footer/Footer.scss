@@ -1,0 +1,16 @@
+@use "../../app.scss" as *;
+
+footer{
+    img{
+        width: 200px;
+    }
+
+    h5{
+        color: $amarelo;
+        font-weight: bolder;
+    }
+
+    button{
+        background-color: $amarelo; 
+    }
+}
