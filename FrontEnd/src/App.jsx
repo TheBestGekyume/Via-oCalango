@@ -5,6 +5,7 @@ import { Login } from './pages/Login/Login.jsx';
 import { NavBar } from './components/NavBar';
 import { About } from './pages/About/About.jsx';
 import { Footer } from './components/Footer/Footer.jsx';
+import { NavBar } from './components/NavBar/NavBar.jsx';
 import './app.scss';
 
 export function App() {
@@ -12,7 +13,7 @@ export function App() {
 
   return (
     <Router>
-      <main style={{ display: 'flex' }} className="container-main">
+      <main style={{ display: 'flex' }} className="container-main vw-100 vh-100">
 
         {token && <NavBar setToken={setToken} />}
 
