@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import "../Login/login.scss"
-import busIcon from '../../assets/busIcon.png'
+import busIcon from '../../assets/busIcon.png';
 
 export function Login({ setToken }) {
     const [userCredentials, setUserCredentials] = useState({ email: '', senha: '', statusErros: null });
@@ -52,7 +52,7 @@ export function Login({ setToken }) {
                                     className='form-control mt-2'
                                     name='login'
                                     type='text'
-                                    placeholder="Usuário"
+                                    placeholder="E-mail"
                                     onChange={(e) => setUserCredentials(prev => ({ ...prev, email: e.target.value }))}
                                 />
                             </div>
