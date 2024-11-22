@@ -12,9 +12,9 @@ export function App() {
 
   return (
     <Router>
-      <div className="d-flex bg-black vh-100">
+      <div className="d-flex bg-black h-100">
         {token && <NavBar setToken={setToken} />}  
-        <main className='container'>
+        <main className='container mb-5 pb-5'>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login setToken={setToken} />} />

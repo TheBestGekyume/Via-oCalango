@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *"); 
+header("Access-Control-Allow-Methods: POST, OPTIONS, GET, PUT"); 
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); 
 
 $conn = new mysqli("localhost", "root", "", "viacaocalango");
 
@@ -25,7 +28,8 @@ if ($result->num_rows > 0) {
             'data_de_partida' => $row['data_de_partida'],
             'assentos' => $assentos,  // Agora 'assentos' é um array de objetos
             'preco' => $row['preco'],
-            'status' => $row['status']
+            'status' => $row['status'],
+            'imgUrl' => $row['imgUrl']
         ];
     }
 }
