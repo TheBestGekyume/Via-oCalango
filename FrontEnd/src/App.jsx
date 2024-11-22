@@ -12,18 +12,17 @@ export function App() {
 
   return (
     <Router>
-      <main style={{ display: 'flex' }} className="container-main v-100 vh-100">
-
-        {token && <NavBar setToken={setToken} />}
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login setToken={setToken} />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </main>
-
-      {token && <Footer/>}  
+      <div className="d-flex bg-black vh-100">
+        {token && <NavBar setToken={setToken} />}  
+        <main className='container'>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login setToken={setToken} />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </main>
+      </div>
+      {token && <Footer />}
     </Router>
   );
 }

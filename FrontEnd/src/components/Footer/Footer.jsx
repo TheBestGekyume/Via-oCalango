@@ -6,7 +6,7 @@ export function Footer() {
         <footer className='bg-dark text-white text-center pt-2'>
             <section className="container">
 
-                <img className='mb-3 ps-2' src={busIcon} alt="" />
+                <img className='mb-3 ps-2' src={busIcon} />
 
                 <div className='row'>
 
@@ -22,14 +22,9 @@ export function Footer() {
                     </div>
 
                     <div className="col">
-
-
                         <h5 className='mb-3'>ACESSO RÁPIDO</h5>
-
                         <p>FALE CONOSCO</p>
-
                         <p>LOGIN</p>
-
                         <p>© 2023 Viação Calango. Todos os direitos reservados.</p>
                     </div>
                     <div className="col d-flex flex-column align-items-center">

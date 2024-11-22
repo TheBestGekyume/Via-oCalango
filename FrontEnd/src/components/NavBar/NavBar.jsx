@@ -17,9 +17,9 @@ export function NavBar({ setToken }) {
   };
 
   return (
-    <nav className="barra-lateral">
+    <nav>
       <figure className='figure'>
-        <img src={busIcon} className='imgIcon' />
+        <img src={busIcon} className='mx-auto d-block' alt="busIcon" />
       </figure>
 
       <IconPessoa />
@@ -27,6 +27,9 @@ export function NavBar({ setToken }) {
       <ul>
         <li className={itemNav === 0 ? "styleLi" : null}>
           <Link className='link-router-dom' to="/">Home</Link>
+        </li>
+        <li className={itemNav === 1 ? "styleLi" : null}>
+          <Link className='link-router-dom' to="/about">About</Link>
         </li>
         <li onClick={logoutUser} style={{ cursor: 'pointer' }}>
           Sair

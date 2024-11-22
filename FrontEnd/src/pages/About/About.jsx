@@ -7,6 +7,7 @@ import missaoIcon from '../../assets/missaoIcon.png'
 
 export function About() {
     const token = window.sessionStorage.getItem("token");
+    window.sessionStorage.setItem('itemNav', 1);
     const navigate = useNavigate();
     useEffect(() => {
         if (!token) {
@@ -17,7 +18,7 @@ export function About() {
     if (token) {
         return (
             <div id='about' className='text-white'>
-                <section className='container-fluid my-5'>
+                <section className='my-5 ps-5'>
                     <div class="row gap-4">
                         <div className='col-4 text-center'>
                             <h2>QUEM SOMOS</h2>
@@ -32,9 +33,9 @@ export function About() {
                     </div>
                 </section>
 
-                <section className='container-fluid mt-5 pt-4'>
+                <section className='mt-5 '>
                     <div class="row gap-4">
-                        <div className='col-2'></div>
+                        <div className='col-1'></div>
 
                         <div className='col'>
                             <img src={missaoIcon} alt="" />
@@ -46,6 +47,8 @@ export function About() {
                             <h2>NOSSA MISSÃO</h2>
                             <p>A Viação Calango é uma empresa de ônibus interestadual dedicada a fornecer serviços de transporte confiáveis e seguros, conectando pessoas e comunidades em todo o país. Nossa missão é oferecer viagens de qualidade, pontuais e acessíveis, priorizando a segurança e a satisfação dos passageiros. Estamos comprometidos em ser uma empresa de referência no setor, contribuindo para a mobilidade e o desenvolvimento do país.</p>
                         </div>
+                        
+                        <div className='col'></div>
                     </div>
                 </section>
 
