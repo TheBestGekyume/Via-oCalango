@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../About/about.scss"
-import maletaIcon from '../../assets/maletaIcon.png'
-import missaoIcon from '../../assets/missaoIcon.png'
+import "./about.scss"
+import maletaIcon from '../../../assets/maletaIcon.png'
+import missaoIcon from '../../../assets/missaoIcon.png'
 
 
 export function About() {
@@ -36,7 +36,7 @@ export function About() {
                 </section>
 
                 <section className='mt-5 '>
-                    <div class="row gap-4">
+                    <div className="row gap-4">
                         <div className='col-1'></div>
 
                         <div className='col'>

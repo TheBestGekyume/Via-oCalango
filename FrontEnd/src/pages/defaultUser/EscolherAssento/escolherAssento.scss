@@ -1,0 +1,29 @@
+.container-selecao-assentos {
+    text-align: center;
+    .onibus-container {
+        
+        .onibus-imagem {
+            width: 1024px;
+            height: auto;
+        }
+
+        .assentos-container{
+            position: relative;
+            right: 100px;
+            top: 60px;
+            gap: 150px;
+            .assento-imagem {
+                margin-inline-end:3px ;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                &.indisponivel {
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+        
+
+    }
+}

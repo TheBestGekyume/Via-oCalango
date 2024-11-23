@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import "../Login/login.scss"
+import "./login.scss"
 import busIcon from '../../assets/busIcon.png';
 
 export function Login({ setToken }) {

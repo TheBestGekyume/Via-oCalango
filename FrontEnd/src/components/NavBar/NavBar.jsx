@@ -23,18 +23,18 @@ export function NavBar({ setToken }) {
       </figure>
 
       <IconPessoa />
-      <p>{nomeUsuario}</p>
-      <ul>
-        <li className={itemNav === 0 ? "styleLi" : null} style={itemNav !== 0 ? { opacity: "0.5" } : null}>
+      <p className='mb-5 pb-3'>{nomeUsuario}</p>
+      <ul className='p-0'>
+        <li className={itemNav === 0 ? "styleLi" : "opacity-50" } >
           <Link onClick={() => { setItemNav(0) }} className='link-router-dom' to="/">Home</Link>
         </li>
-        <li className={itemNav === 1 ? "styleLi" : null} style={itemNav !== 1 ? { opacity: "0.5" } : null}>
+        <li className={itemNav === 1 ? "styleLi " : "opacity-50" } >
           <Link onClick={() => { setItemNav(1) }} className='link-router-dom' to="/about">About</Link>
         </li>
-        <li className={itemNav === 2 ? "styleLi" : null} style={itemNav !== 2 ? { opacity: "0.5" } : null}>
+        <li className={itemNav === 2 ? "styleLi" : "opacity-50" } >
           <Link onClick={() => { setItemNav(2) }} className='link-router-dom' to="/passagens">Passagens</Link>
         </li>
-        <li onClick={logoutUser} style={{ cursor: 'pointer', opacity: "0.5" }}>
+        <li onClick={logoutUser} className='opacity-50'>
           Sair
         </li>
       </ul>
