@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Home } from './pages/Home/Home.jsx';
+//rotas
 import { Login } from './pages/Login/Login.jsx';
-import { About } from './pages/About/About.jsx';
+import { Home } from './pages/defaultUser/Home/Home.jsx';
+import { About } from './pages/defaultUser/About/About.jsx';
+import { Passagens } from './pages/defaultUser/Passagens/Passagens.jsx';
+import { Admin } from './pages/adminUser/Admin/Admin.jsx';
+import { EscolherAssento } from './pages/defaultUser/EscolherAssento/EscolherAssento.jsx';
+//components
 import { Footer } from './components/Footer/Footer.jsx';
 import { NavBar } from './components/NavBar/NavBar.jsx';
-import { Passagens } from './pages/Passagens/Passagens.jsx';
 import './app.scss';
 
 export function App() {
@@ -17,10 +21,12 @@ export function App() {
         {token && <NavBar setToken={setToken} />}
         <main className='container mb-5 pb-5'>
           <Routes>
-            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login setToken={setToken} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/passagens" element={<Passagens />} />
+            <Route path="/escolherAssento" element={<EscolherAssento />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
       </div>

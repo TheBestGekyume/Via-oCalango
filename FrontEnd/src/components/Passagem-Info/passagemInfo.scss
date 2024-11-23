@@ -14,7 +14,6 @@
     div{
         p{
             margin: 0;
-            padding: 0;
         }
     }
 
@@ -29,8 +28,15 @@
         color: $colorBlack000;
         font-weight:700;
         font-size: 14px;
-        padding: 4px;
+        padding: 6px;
         border: 1px solid $amarelo;
         border-radius: 8px;
+        opacity: 0.75;
+        transition: 250ms;
+
+        &:hover{
+            opacity: 1;
+            box-shadow: 0 2px 5px 0 $colorBlack000 ;
+        }
     }
 }

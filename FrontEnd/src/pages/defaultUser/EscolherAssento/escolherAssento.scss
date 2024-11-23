@@ -1,0 +1,31 @@
+.container-selecao-assentos {
+    text-align: center;
+    .onibus-container {
+        
+        .onibus-imagem {
+            width: 1024px;
+            height: auto;
+        }
+
+        .assento-imagem {
+            margin-inline-end:3px ;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            &.indisponivel {
+                cursor: not-allowed;
+            }
+        }
+
+        .fileira-A {
+            
+            top:  6rem;  // Adiciona a unidade rem
+             // Adiciona a unidade px
+        }
+
+        .fileira-B {
+            top: 14rem; // Está correto com unidade
+        }
+    }
+}
