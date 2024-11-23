@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20/11/2024 às 04:11
+-- Tempo de geração: 23/11/2024 às 01:14
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -41,7 +41,8 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `nome`, `senha`, `email`, `tipo`) VALUES
 (1, 'jorge da silva', '123123', 'jorge@hotmail.com', 0),
-(2, 'adm', '123', 'adm@gmail.com', 1);
+(2, 'adm', '123', 'adm@gmail.com', 1),
+(5, 'gekyume', '666', 'gekyume@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -55,13 +56,6 @@ CREATE TABLE `usuario_viagem` (
   `viagem_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `usuario_viagem`
---
-
-INSERT INTO `usuario_viagem` (`usuario_viagem_id`, `usuario_id`, `viagem_id`) VALUES
-(1, 2, 18);
-
 -- --------------------------------------------------------
 
 --
@@ -70,6 +64,7 @@ INSERT INTO `usuario_viagem` (`usuario_viagem_id`, `usuario_id`, `viagem_id`) VA
 
 CREATE TABLE `viagem` (
   `id_viagem` int(11) NOT NULL,
+  `imgUrl` varchar(200) NOT NULL,
   `origem` varchar(50) NOT NULL,
   `destino` varchar(50) NOT NULL,
   `horario_de_partida` varchar(20) NOT NULL,
@@ -83,11 +78,10 @@ CREATE TABLE `viagem` (
 -- Despejando dados para a tabela `viagem`
 --
 
-INSERT INTO `viagem` (`id_viagem`, `origem`, `destino`, `horario_de_partida`, `data_de_partida`, `assentos`, `preco`, `status`) VALUES
-(1, 'hell de janero', 'Sp', '08:00', '2024-11-25', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":false},{\"nro_assento\":\"B1\",\"disponivel\":true}]', 30000.5, 1),
-(11, 'testerrr', 'teste', '10:00:00', '2077-11-20', '0', 2.75, 0),
-(17, 'testerrr', 'teste', '10:00:00', '2077', '100', 2, 1),
-(18, 'Rio de Janeiro', 'São Paulo', '08:00', '2024-11-25', '[{\"nro_assento\":\"A1\",\"disponivel\":false},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"A6\",\"disponivel\":true},{\"nro_assento\":\"A7\",\"disponivel\":true},{\"nro_assento\":\"A8\",\"disponivel\":true},{\"nro_assento\":\"A9\",\"disponivel\":true},{\"nro_assento\":\"A10\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":true},{\"nro_assento\":\"B2\",\"disponivel\":true},{\"nro_assento\":\"B3\",\"disponivel\":false},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true},{\"nro_assento\":\"B6\",\"disponivel\":true},{\"nro_assento\":\"B7\",\"disponivel\":true},{\"nro_assento\":\"B8\",\"disponivel\":true},{\"nro_assento\":\"B9\",\"disponivel\":true},{\"nro_assento\":\"B10\",\"disponivel\":true}]', 150.5, 1);
+INSERT INTO `viagem` (`id_viagem`, `imgUrl`, `origem`, `destino`, `horario_de_partida`, `data_de_partida`, `assentos`, `preco`, `status`) VALUES
+(21, 'https://content.r9cdn.net/rimg/dimg/f3/ac/2ca2def3-city-26168-164fc0204f5.jpg', 'Rio de Janeiro - RJ', 'Salvador - BA', '04:50', '10/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":true},{\"nro_assento\":\"B2\",\"disponivel\":true},{\"nro_assento\":\"B3\",\"disponivel\":true},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true}]', 120.5, 1),
+(22, 'https://www.pjf.mg.gov.br/noticias/arquivo/0609_sedic_ranking_112728.jpg', 'São Paulo - SP', 'Juiz de Fora - MG', '04:50', '10/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":true},{\"nro_assento\":\"B2\",\"disponivel\":true},{\"nro_assento\":\"B3\",\"disponivel\":true},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true}]', 120.5, 1),
+(23, 'https://www.sienge.com.br/wp-content/uploads/2023/11/bairros-mais-caros-de-belo-horizonte.jpg', 'Rio de Janeiro - RJ', 'Belo Horizonte - MG', '09:00', '15/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"A6\",\"disponivel\":true},{\"nro_assento\":\"A7\",\"disponivel\":true},{\"nro_assento\":\"B0.5\",\"disponivel\":true},{\"nro_assento\":\"B1.5\",\"disponivel\":true},{\"nro_assento\":\"B2.5\",\"disponivel\":true},{\"nro_assento\":\"B3.5\",\"disponivel\":true},{\"nro_assento\":\"B4.5\",\"disponivel\":true},{\"nro_assento\":\"B5.5\",\"disponivel\":true},{\"nro_assento\":\"B6.5\",\"disponivel\":true},{\"nro_assento\":\"B7.5\",\"disponivel\":true}]', 150, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -121,7 +115,7 @@ ALTER TABLE `viagem`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `usuario_viagem`
@@ -133,7 +127,7 @@ ALTER TABLE `usuario_viagem`
 -- AUTO_INCREMENT de tabela `viagem`
 --
 ALTER TABLE `viagem`
-  MODIFY `id_viagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_viagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Restrições para tabelas despejadas
