@@ -2,23 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './card.scss';
+import { Load } from '../Load';
 
 
 export function Card() {
-    const [viagens, setViagens] = useState([]); 
-    const [carregando, setCarregando] = useState(true); 
+    const [viagens, setViagens] = useState([]);
     const [erro, setErro] = useState(null);
+    const [LoadAnimation, setLoadAnimation] = useState(true);
 
     useEffect(() => {
         axios.get('http://localhost/viacaocalango/BackEnd/crudViagem/listarViagem.php')
-            .then((response) => {
-                setViagens(response.data); 
-                setCarregando(false);
+        .then((response) => {
+            setViagens(response.data || []);
+            setLoadAnimation(false);
             })
             .catch((error) => {
                 console.error("Erro ao buscar as viagens:", error);
                 setErro("Não foi possível carregar as viagens.");
-                setCarregando(false);
+                setLoadAnimation(false);
             });
     }, []);
 
@@ -30,9 +31,9 @@ export function Card() {
                         <div className="alert alert-danger text-center">{erro}</div>
                     </div>
                 )}
-                {carregando ? (
+                {LoadAnimation ? (
                     <div className="col-12 text-center">
-                        <p>Carregando viagens...</p>
+                        <Load />
                     </div>
                 ) : (
                     viagens.length > 0 ? (

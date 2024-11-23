@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
             'assentos' => $assentos,  // Agora 'assentos' é um array de objetos
             'preco' => $row['preco'],
             'status' => $row['status'],
-            'imgUrl' => $row['imgUrl']
+            'imgUrl' => isset($row['imgUrl']) ? $row['imgUrl'] : null // Verifica se 'imgUrl' existe
         ];
     }
 }
