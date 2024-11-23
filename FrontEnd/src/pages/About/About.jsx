@@ -7,11 +7,13 @@ import missaoIcon from '../../assets/missaoIcon.png'
 
 export function About() {
     const token = window.sessionStorage.getItem("token");
-    window.sessionStorage.setItem('itemNav', 1);
+
     const navigate = useNavigate();
     useEffect(() => {
         if (!token) {
             navigate('/login');
+        } else {
+            window.sessionStorage.setItem("itemNav", 1);
         }
     }, [token, navigate]);
 
@@ -47,7 +49,7 @@ export function About() {
                             <h2>NOSSA MISSÃO</h2>
                             <p>A Viação Calango é uma empresa de ônibus interestadual dedicada a fornecer serviços de transporte confiáveis e seguros, conectando pessoas e comunidades em todo o país. Nossa missão é oferecer viagens de qualidade, pontuais e acessíveis, priorizando a segurança e a satisfação dos passageiros. Estamos comprometidos em ser uma empresa de referência no setor, contribuindo para a mobilidade e o desenvolvimento do país.</p>
                         </div>
-                        
+
                         <div className='col'></div>
                     </div>
                 </section>
