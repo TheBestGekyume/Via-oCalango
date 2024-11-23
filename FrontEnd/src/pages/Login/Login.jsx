@@ -27,7 +27,7 @@ export function Login({ setToken }) {
                 window.sessionStorage.setItem('typeUser', tipo);
                 window.sessionStorage.setItem('nome', nome);
                 setToken(status);
-                navigate("/"); 
+                navigate("/");
             })
             .catch((error) => {
                 console.log(error);
@@ -38,12 +38,12 @@ export function Login({ setToken }) {
     };
 
     return (
-        <div>
+        <div id='login'>
             {!window.sessionStorage.getItem('token') && (
                 <>
                     <img src={busIcon} alt="viação calango" />
 
-                    <div id='login' className='d-flex justify-content-center align-items-center vw-100 vh-100 flex-column'>
+                    <div className='d-flex justify-content-center align-items-center vh-100 flex-column'>
                         <form className='text-center py-3 px-4' onSubmit={logarUsuario}>
                             <h1>Fazer Login</h1>
                             <div className='d-flex flex-column text-start mb-4 mt-4'>
@@ -73,7 +73,7 @@ export function Login({ setToken }) {
                             </button>
                         </form>
 
-                        {userCredentials.statusErros && <p>{userCredentials.statusErros}</p>}
+                        {userCredentials.statusErros && <span className='position-absolute bottom-0 mb-5'>{userCredentials.statusErros}</span>}
                     </div>
                 </>
             )}

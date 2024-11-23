@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *"); 
+header("Access-Control-Allow-Methods: POST, OPTIONS, GET, PUT"); 
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); 
 
 $conn = new mysqli("localhost", "root", "", "viacaocalango");
 
@@ -17,7 +20,6 @@ if ($result->num_rows > 0) {
         // Decodifica a coluna 'assentos' que está armazenada como string JSON
         $assentos = json_decode($row['assentos'], true); // Transforma a string JSON em um array de objetos
         
-        // Adiciona os dados do banco de dados ao array, com 'assentos' já como um array de objetos
         $viagens[] = [
             'id_viagem' => $row['id_viagem'],
             'origem' => $row['origem'],
@@ -26,7 +28,8 @@ if ($result->num_rows > 0) {
             'data_de_partida' => $row['data_de_partida'],
             'assentos' => $assentos,  // Agora 'assentos' é um array de objetos
             'preco' => $row['preco'],
-            'status' => $row['status']
+            'status' => $row['status'],
+            'imgUrl' => $row['imgUrl']
         ];
     }
 }

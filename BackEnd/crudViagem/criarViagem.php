@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Valida os dados da requisição
     if (!isset($data['origem'], $data['destino'], $data['horario_de_partida'],
-    $data['data_de_partida'], $data['preco'], $data['assentos'])) {
+    $data['data_de_partida'], $data['preco'], $data['assentos'], $data['imgUrl'])) {
         echo json_encode(["error" => "Campos obrigatórios ausentes."]);
         $conn->close();
         exit;
@@ -24,7 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $horario_de_partida = $conn->real_escape_string($data['horario_de_partida']);
     $data_de_partida = $conn->real_escape_string($data['data_de_partida']);
     $preco = $conn->real_escape_string($data['preco']);
-    $total_assentos = intval($data['assentos']); // Garante que seja um número inteiro
+    $imgUrl = $conn->real_escape_string($data['imgUrl']);
+    $total_assentos = intval($data['assentos']); 
 
     // Gera o JSON com os assentos
     $assentos = [];
@@ -46,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
 
     // Monta a query de inserção usando prepared statements
-    $stmt = $conn->prepare("INSERT INTO viagem (origem, destino, horario_de_partida, data_de_partida, preco, status, assentos) 
-                            VALUES (?, ?, ?, ?, ?, 1, ?)");
-    $stmt->bind_param("ssssds", $origem, $destino, $horario_de_partida, $data_de_partida, $preco, $assentos_json);
+    $stmt = $conn->prepare("INSERT INTO viagem (origem, destino, horario_de_partida, data_de_partida, preco, status, imgUrl, assentos) 
+                            VALUES (?, ?, ?, ?, ?, 1, ?, ?)");
+    $stmt->bind_param("ssssdss", $origem, $destino, $horario_de_partida, $data_de_partida, $preco, $imgUrl, $assentos_json);
 
     // Executa a query
     if ($stmt->execute()) {

@@ -1,17 +1,5 @@
 @use "../../app.scss" as *;
 
-img{
-    position: absolute;
-    width: 300px;
-    height: 150px;
-    top: 20px;
-    left: 50px;
-
-    @media screen and (max-width: 1024px){
-        width: 200px;
-        height: auto;
-    }
-}
 
 div#login {
     background-color: #000;
@@ -20,7 +8,19 @@ div#login {
     font-weight: lighter;
 
     
+    img{
+        position: absolute;
+        width: 300px;
+        height: 150px;
+        top: 20px;
+        left: 50px;
     
+        @media screen and (max-width: 1024px){
+            width: 200px;
+            height: auto;
+        }
+    }
+
     form{
         border: 2px solid $amarelo;
         border-radius:1rem;

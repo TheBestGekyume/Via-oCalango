@@ -30,6 +30,13 @@ nav {
         justify-content: center;
         margin-bottom: 1rem;
         border-radius: 8px;
+        transition: 250ms;
+        opacity: 0.5;
+
+        &:hover {
+            scale: 1.1;
+            opacity: 1;
+        }
     }
 
 
@@ -63,5 +70,4 @@ nav {
     justify-content: center;
     margin-bottom: 1rem;
     border-radius: 8px;
-
 }
