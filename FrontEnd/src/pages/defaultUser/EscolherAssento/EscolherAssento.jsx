@@ -5,7 +5,7 @@ import onibus from "../../../assets/onibus.png";
 import disponivel from "../../../assets/assentoDisponivel.png";
 import indisponivel from "../../../assets/assentoIndisponivel.png";
 import selecionado from "../../../assets/assentoSelecionado.png";
-import './escolherAssento.scss'; 
+import './escolherAssento.scss';
 
 export function EscolherAssento() {
     const [viagem, setViagem] = useState(null);
@@ -68,27 +68,34 @@ export function EscolherAssento() {
             <h3 className='text-white'> Selecionar Assentos - Viagem ID: {viagem.id}</h3>
             <div className="onibus-container d-flex justify-content-center flex-wrap ">
                 <img src={onibus} alt="Ônibus" className="onibus-imagem position-absolute" />
-                
-                {fileiraA.map((assento, index) => (
-                    <img
-                        key={index}
-                        src={getAssentoImage(assento)}
-                        alt={`Assento ${assento.nro_assento}`}
-                        className="assento-imagem fileira-A"
-                        
-                        onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
-                    />
-                ))}
+                <div className='assentos-container d-flex flex-column '>
 
-                {fileiraB.map((assento, index) => (
-                    <img
-                        key={index}
-                        src={getAssentoImage(assento)}
-                        alt={`Assento ${assento.nro_assento}`}
-                        className="assento-imagem fileira-B"
-                        onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
-                    />
-                ))}
+                    <div>
+                        {fileiraA.map((assento, index) => (
+                            <img
+                                key={index}
+                                src={getAssentoImage(assento)}
+                                alt={`Assento ${assento.nro_assento}`}
+                                className="assento-imagem fileira-A"
+
+                                onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
+                            />
+                        ))}
+                    </div>
+                    <div>
+                        {fileiraB.map((assento, index) => (
+                            <img
+                                key={index}
+                                src={getAssentoImage(assento)}
+                                alt={`Assento ${assento.nro_assento}`}
+                                className="assento-imagem fileira-B"
+                                onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
+                            />
+                        ))}
+                    </div>
+
+                </div>
+
             </div>
         </div>
     );

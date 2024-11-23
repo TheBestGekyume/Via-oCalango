@@ -7,25 +7,23 @@
             height: auto;
         }
 
-        .assento-imagem {
-            margin-inline-end:3px ;
+        .assentos-container{
             position: relative;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            &.indisponivel {
-                cursor: not-allowed;
+            right: 100px;
+            top: 60px;
+            gap: 150px;
+            .assento-imagem {
+                margin-inline-end:3px ;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                &.indisponivel {
+                    cursor: not-allowed;
+                }
             }
         }
 
-        .fileira-A {
-            
-            top:  6rem;  // Adiciona a unidade rem
-             // Adiciona a unidade px
-        }
+        
 
-        .fileira-B {
-            top: 14rem; // Está correto com unidade
-        }
     }
 }
