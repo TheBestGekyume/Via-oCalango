@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'; // Importa o hook para redirecio
 import axios from 'axios';
 import "./passagemInfo.scss";
 import map from "../../assets/map.png";
+import { Load } from '../Load';
 
 export function PassagemInfo({ setDetalhesViagem }) {
     const [viagens, setViagens] = useState([]);
@@ -13,8 +14,8 @@ export function PassagemInfo({ setDetalhesViagem }) {
         // Faz a requisição para o backend
         axios.get('http://localhost/viacaocalango/BackEnd/crudViagem/listarViagem.php')
             .then((response) => {
-                console.log(response.data); 
-                setViagens(response.data); 
+                console.log(response.data);
+                setViagens(response.data);
             })
             .catch((error) => {
                 console.error("Erro ao buscar informações das viagens:", error);
@@ -27,7 +28,10 @@ export function PassagemInfo({ setDetalhesViagem }) {
     }
 
     if (viagens.length === 0) {
-        return <p>Carregando informações das viagens...</p>; // Exibe enquanto os dados estão carregando
+        return <div>
+            <Load />
+            <p>Carregando informações das viagens...</p>
+        </div>; // Exibe enquanto os dados estão carregando
     }
 
     const handleVerMais = (viagemId) => {

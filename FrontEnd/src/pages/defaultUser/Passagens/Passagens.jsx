@@ -8,6 +8,14 @@ import { PassagemInfo } from '../../../components/Passagem-Info/PassagemInfo.jsx
 import { DetalhesViagem } from '../../../components/DetalhesViagem/DetalhesViagem.jsx';
 
 export function Passagens() {
+    useEffect(() => {
+        if (Number(window.sessionStorage.getItem("itemNav")) !== 2) {
+            window.location.reload();
+        }
+        if (token) {
+            window.sessionStorage.setItem("itemNav", 2);
+        }
+    }, [])
     const navigate = useNavigate();
     const token = window.sessionStorage.getItem("token");
     const [local, setLocal] = useState(null);
@@ -19,9 +27,6 @@ export function Passagens() {
         }
     }, [token, navigate]);
 
-    if (token) {
-        window.sessionStorage.setItem("itemNav", 2);
-    }
 
     if (token) {
         return (
@@ -39,13 +44,11 @@ export function Passagens() {
                         </div>
                     </div>
                 )}
-                <Load />
                 {!detalhesViagem && (
                     <section className='d-flex flex-wrap'>
                         <PassagemInfo setDetalhesViagem={setDetalhesViagem} />
                     </section>
                 )}
-                {detalhesViagem && <DetalhesViagem setDetalhesViagem={setDetalhesViagem} />}
             </div>
         );
     }

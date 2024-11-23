@@ -23,7 +23,7 @@ export function Home() {
   if (token) {
     return (
       <div id='home' className='text-white text-center pt-5'>
-        <Link to="/passagens" onClick={window.sessionStorage.setItem("itemNav", 2)}>
+        <Link to="/passagens" /* onClick={window.sessionStorage.setItem("itemNav", 2)} */>
           <button className='btn btn-lg text-white mb-5' type='button'>
 
             <Link onClick={() => { setItemNav(2) }} className='text-decoration-none text-white' to="/passagens">
