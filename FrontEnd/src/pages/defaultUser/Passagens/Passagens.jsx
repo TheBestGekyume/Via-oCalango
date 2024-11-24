@@ -26,7 +26,7 @@ export function Passagens() {
             navigate('/login');
         }
     }, [token, navigate]);
-
+    console.log(local)
 
     if (token) {
         return (
@@ -34,19 +34,9 @@ export function Passagens() {
                 <div className='w-100 px-4'>
                     <DestinoUser setLocal={setLocal} />
                 </div>
-                {local && (
-                    // <div style={{ width: '90%', display: "flex", justifyContent: "space-between", alignItems: 'center', marginTop: '5rem' }}>
-                    <div>
-                        <h3 className='bus-txt-local'>Ônibus para {local}</h3>
-                        <div className='input-search'>
-                            <input placeholder='Filtrar por nome' />
-                            <img src={search} style={{ height: "auto", width: '20px' }} alt="Ícone de busca" />
-                        </div>
-                    </div>
-                )}
                 {!detalhesViagem && (
                     <section className='d-flex flex-wrap'>
-                        <PassagemInfo setDetalhesViagem={setDetalhesViagem} />
+                        <PassagemInfo /* setDetalhesViagem={setDetalhesViagem} */ local={local} />
                     </section>
                 )}
             </div>

@@ -13,8 +13,11 @@
             position: relative;
             right: 100px;
             top: 60px;
-            gap: 150px;
+            gap: 100px;
+            margin-bottom: 3rem;
+            margin-left: 10rem;
             .assento-imagem {
+                transform: scaleX(-1);
                 margin-inline-end:3px ;
                 width: 40px;
                 height: 40px;

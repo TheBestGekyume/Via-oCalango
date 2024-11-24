@@ -6,6 +6,7 @@ import disponivel from "../../../assets/assentoDisponivel.png";
 import indisponivel from "../../../assets/assentoIndisponivel.png";
 import selecionado from "../../../assets/assentoSelecionado.png";
 import './escolherAssento.scss';
+import { LoadConfirm } from '../../../components/LoadConfirm';
 
 export function EscolherAssento() {
     const [viagem, setViagem] = useState(null);
@@ -14,6 +15,7 @@ export function EscolherAssento() {
     const navigate = useNavigate();
     const viagemId = searchParams.get('id');
     const usuarioId = window.sessionStorage.getItem("id_usuario");
+    const [confirmarPedido, setConfirmarPedido] = useState(null);
 
     useEffect(() => {
         const token = window.sessionStorage.getItem("token");
@@ -68,6 +70,7 @@ export function EscolherAssento() {
             )
 
             console.log(response.data);
+            setConfirmarPedido(true);
 
         } catch (error) {
             console.log(error.response);
@@ -96,31 +99,37 @@ export function EscolherAssento() {
                     <path fill="#FFB803" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
                 </svg>
 
-                <h3 style={{ marginRight: "2rem" }} className='text-white'>Selecionar Assentos - Viagem ID: {viagem.id}</h3>
+                {!confirmarPedido && <h3 style={{ marginRight: "2rem" }} className='text-white'>Selecionar Assentos - Viagem ID: {viagem.id}</h3>}
             </div>
-            <div className="onibus-container d-flex justify-content-center flex-wrap ">
+            {!confirmarPedido && <div className="onibus-container d-flex justify-content-center flex-wrap ">
                 <img src={onibus} alt="Ônibus" className="onibus-imagem position-absolute" />
                 <div className='assentos-container d-flex flex-column '>
-                    <div>
+                    <div style={{ display: "flex", flexDirection: "row" }}>
                         {fileiraA.map((assento, index) => (
-                            <img
-                                key={index}
-                                src={getAssentoImage(assento)}
-                                alt={`Assento ${assento.nro_assento}`}
-                                className="assento-imagem fileira-A"
-                                onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
-                            />
+                            <div style={{ margin: '0', padding: '0' }}>
+                                <p style={{ margin: '0', padding: '0' }}>{assento.nro_assento}</p>
+                                <img
+                                    key={index}
+                                    src={getAssentoImage(assento)}
+                                    alt={`Assento ${assento.nro_assento}`}
+                                    className="assento-imagem fileira-A"
+                                    onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
+                                />
+                            </div>
                         ))}
                     </div>
-                    <div>
+                    <div style={{ display: "flex", flexDirection: "row" }}>
                         {fileiraB.map((assento, index) => (
-                            <img
-                                key={index}
-                                src={getAssentoImage(assento)}
-                                alt={`Assento ${assento.nro_assento}`}
-                                className="assento-imagem fileira-B"
-                                onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
-                            />
+                            <div style={{ margin: '0', padding: '0' }}>
+                                <p style={{ margin: '0', padding: '0' }}>{assento.nro_assento}</p>
+                                <img
+                                    key={index}
+                                    src={getAssentoImage(assento)}
+                                    alt={`Assento ${assento.nro_assento}`}
+                                    className="assento-imagem fileira-B"
+                                    onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
+                                />
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -141,9 +150,20 @@ export function EscolherAssento() {
                             <p>Selecionado</p>
                         </figure>
                     </div>
-                    <button className='buscar-viagem' style={{ width: '15%' }} onClick={handleCompra}>Comprar</button>
+                    <button className='buscar-viagem' style={{ width: '15%' }} onClick={() => {
+                        if (assentosSelecionados.map((nro_assento) => ({ nro_assento })).length > 0) {
+                            handleCompra();
+                        } else {
+                            alert('Selecione um ou mais assentos para comprar.')
+                        }
+                    }}>Comprar</button>
                 </section>
-            </div>
+            </div>}
+            {confirmarPedido && <div>
+                <h1 style={{ color: '#09CE9F' }}>Pasasgem comprada com sucesso!</h1>
+                <h4 style={{ color: '#FFF' }}>Consulte mais detalhes em Meus Pedidos.</h4>
+                <LoadConfirm />
+            </div>}
         </div>
     );
 }

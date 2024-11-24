@@ -27,8 +27,11 @@ export function DestinoUser({setLocal}) {
     };
 
     const validarOrigemDestino = (origem, destino) => {
+        console.log(origem)
         if (origem && destino) {
             return true;
+        }else{
+            alert("Um ou mais campos não foram preenchidos corretamente!")
         }
     }
 
@@ -118,8 +121,8 @@ export function DestinoUser({setLocal}) {
                 <div style={{ display: "flex", alignItems: 'flex-end' }}>
                     <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                         <button onClick={() => {
-                            if (validarOrigemDestino(origemDestinoUser.ida, origemDestinoUser.destino)) {
-                                setLocal(origemDestinoUser.destino)
+                            if (validarOrigemDestino(origemDestinoUser.origem, origemDestinoUser.destino)) {
+                                setLocal(origemDestinoUser)
                             }
                         }} className='buscar-viagem'><span>Buscar viagem</span></button>
                     </div>
