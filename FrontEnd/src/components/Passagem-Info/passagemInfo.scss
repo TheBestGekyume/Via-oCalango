@@ -1,0 +1,42 @@
+@use "../../app.scss" as *;
+
+.container-passagem-info{
+    background-color: #D9D9D9;
+    width: 47%;
+    margin: 1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    justify-content: space-between;
+
+    div{
+        p{
+            margin: 0;
+        }
+    }
+
+    .map-passagem-info{
+        width: 40px;
+        height: auto;
+    }
+
+    .button-horarios-passagem-info{
+        background-color: $amarelo;
+        margin-left: 0.5rem;
+        color: $colorBlack000;
+        font-weight:700;
+        font-size: 14px;
+        padding: 6px;
+        border: 1px solid $amarelo;
+        border-radius: 8px;
+        opacity: 0.75;
+        transition: 250ms;
+
+        &:hover{
+            opacity: 1;
+            box-shadow: 0 2px 5px 0 $colorBlack000 ;
+        }
+    }
+}

@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+//rotas
+import { Login } from './pages/Login/Login.jsx';
+import { Home } from './pages/defaultUser/Home/Home.jsx';
+import { About } from './pages/defaultUser/About/About.jsx';
+import { Passagens } from './pages/defaultUser/Passagens/Passagens.jsx';
+import { Admin } from './pages/adminUser/Admin/Admin.jsx';
+import { EscolherAssento } from './pages/defaultUser/EscolherAssento/EscolherAssento.jsx';
+//components
+import { Footer } from './components/Footer/Footer.jsx';
+import { NavBar } from './components/NavBar/NavBar.jsx';
+import './app.scss';
 
-function App() {
-  const [count, setCount] = useState(0)
+export function App() {
+  const [token, setToken] = useState(window.sessionStorage.getItem('token'));
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="d-flex bg-black h-100">
+        {token && <NavBar setToken={setToken} />}
+        <main className='container mb-5 pb-5'>
+          <Routes>
+            <Route path="/login" element={<Login setToken={setToken} />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/passagens" element={<Passagens />} />
+            <Route path="/escolherAssento" element={<EscolherAssento />} />
+            <Route path="/admin" element={<Admin />} />
+          </Routes>
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      {token && <Footer />}
+    </Router>
+  );
 }
-
-export default App

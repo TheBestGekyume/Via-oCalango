@@ -1,0 +1,59 @@
+@use '../../../app.scss' as *;
+.container-selecao-assentos {
+    text-align: center;
+    .onibus-container {
+        
+        .onibus-imagem {
+            width: 1024px;
+            height: auto;
+            transform: scaleX(-1);
+        }
+
+        .assentos-container{
+            position: relative;
+            right: 100px;
+            top: 60px;
+            gap: 100px;
+            margin-bottom: 3rem;
+            margin-left: 10rem;
+            .assento-imagem {
+                transform: scaleX(-1);
+                margin-inline-end:3px ;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                
+                &.indisponivel {
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+        
+
+    }
+}
+
+.container-tipo-assento{
+    display: flex;
+    flex-direction: row;
+}
+
+.container-img-tipo{
+    display: flex;
+    align-items: flex-end;
+    color: $colorWhite;
+    font-weight: 900;
+    margin-right: 2rem;
+    gap: 20px;
+}
+
+.button-comprar{
+    background-color: $amarelo;
+    outline: none;
+    font-weight: 700;
+    color: $colorWhite;
+    border-radius: 8px;
+}
+
+

@@ -1,0 +1,21 @@
+@use "../../../app.scss" as *;
+
+
+.input-search{
+    border: 1px solid $amarelo;
+    border-radius: 4px;
+    padding: 4px;
+    color: $colorWhite;
+}
+
+input {
+    background-color: $colorBlack000;
+    color: $colorWhite;
+    outline: none;
+    border: none;
+    margin-right: 1rem;
+}
+
+.bus-txt-local{
+    color: $amarelo;
+}

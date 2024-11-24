@@ -1,0 +1,20 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Sen;
+}
+
+$amarelo: #FFB803;
+$colorBlack: #4F4F4F;
+$fontTamanho: 1.2rem;
+$colorWhite: #FFFFFF;
+$colorBlack000: #000;
+
+body {
+    background-color: $colorBlack000;
+}
+
+.container-main {
+    background-color: $colorBlack000;
+}
