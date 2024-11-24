@@ -22,10 +22,11 @@ export function Login({ setToken }) {
             senha: userCredentials.senha
         })
             .then((response) => {
-                const { status, tipo, nome } = response.data;
+                const { status, tipo, nome, id_usuario } = response.data;
                 window.sessionStorage.setItem('token', status);
                 window.sessionStorage.setItem('typeUser', tipo);
                 window.sessionStorage.setItem('nome', nome);
+                window.sessionStorage.setItem('id_usuario', id_usuario);
                 setToken(status);
                 navigate("/");
             })
