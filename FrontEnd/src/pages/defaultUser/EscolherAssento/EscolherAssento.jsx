@@ -5,8 +5,9 @@ import onibus from "../../../assets/onibus.png";
 import disponivel from "../../../assets/assentoDisponivel.png";
 import indisponivel from "../../../assets/assentoIndisponivel.png";
 import selecionado from "../../../assets/assentoSelecionado.png";
-import './escolherAssento.scss';
 import { LoadConfirm } from '../../../components/LoadConfirm';
+import './escolherAssento.scss';
+
 
 export function EscolherAssento() {
     const [viagem, setViagem] = useState(null);
@@ -112,7 +113,7 @@ export function EscolherAssento() {
                                     key={index}
                                     src={getAssentoImage(assento)}
                                     alt={`Assento ${assento.nro_assento}`}
-                                    className="assento-imagem fileira-A"
+                                    className="assento-imagem fileira-A rounded"
                                     onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
                                 />
                             </div>
@@ -120,13 +121,13 @@ export function EscolherAssento() {
                     </div>
                     <div style={{ display: "flex", flexDirection: "row" }}>
                         {fileiraB.map((assento, index) => (
-                            <div style={{ margin: '0', padding: '0' }}>
-                                <p style={{ margin: '0', padding: '0' }}>{assento.nro_assento}</p>
+                            <div className='p-0 m-0'>
+                                <p className='p-0 m-0'>{assento.nro_assento}</p>
                                 <img
                                     key={index}
                                     src={getAssentoImage(assento)}
                                     alt={`Assento ${assento.nro_assento}`}
-                                    className="assento-imagem fileira-B"
+                                    className="assento-imagem fileira-B rounded"
                                     onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
                                 />
                             </div>
@@ -135,28 +136,29 @@ export function EscolherAssento() {
                 </div>
                 <section style={{ width: "100%", marginTop: '10rem ', display: 'flex', justifyContent: "space-around", alignItems: 'center' }}>
                     <div className='container-tipo-assento'>
-                        <figure className='container-img-tipo'>
+                        <figure className='d-flex align-items-end text-white fw-bolder me-3 gap-2'>
                             <img className="assento-imagem fileira-B" src={disponivel} style={{ width: "60px" }} />
                             <p>Disponível</p>
                         </figure >
 
-                        <figure className='container-img-tipo'>
+                        <figure className='d-flex align-items-end text-white fw-bolder me-3 gap-2'>
                             <img className="assento-imagem fileira-B" src={indisponivel} style={{ width: "60px", borderRadius: '8px' }} />
                             <p>Indisponível</p>
                         </figure>
 
-                        <figure className='container-img-tipo'>
+                        <figure className='d-flex align-items-end text-white fw-bolder me-3 gap-2'>
                             <img className="assento-imagem fileira-B" src={selecionado} style={{ width: "60px", borderRadius: '8px' }} />
                             <p>Selecionado</p>
                         </figure>
                     </div>
-                    <button className='buscar-viagem' style={{ width: '15%' }} onClick={() => {
+                    <button className='buscar-viagem'  onClick={() => {
                         if (assentosSelecionados.map((nro_assento) => ({ nro_assento })).length > 0) {
                             handleCompra();
                         } else {
                             alert('Selecione um ou mais assentos para comprar.')
                         }
-                    }}>Comprar</button>
+                    }}>Comprar
+                    </button>
                 </section>
             </div>}
             {confirmarPedido && <div>

@@ -1,14 +1,13 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './card.scss';
-import { Load } from '../Load';
 
 export function Card({ viagens }) {
   return (
     <div id="card" className="container px-3">
       <div className="row">
         {viagens.length > 0 ? (
-          viagens.map((viagem, index) => (
+          viagens.slice(0,4).map((viagem, index) => (
             <div className="col-md-6 my-4" key={index}>
               <div className="card h-100 border- bg-transparent d-flex">
                 <img

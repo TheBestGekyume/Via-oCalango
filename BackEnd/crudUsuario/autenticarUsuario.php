@@ -20,20 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $senha = $data['senha'];
 
         // Prepara a query de autenticação
-        $stmt = $conn->prepare("SELECT nome, tipo FROM usuario WHERE email = ? AND senha = ?");
+        $stmt = $conn->prepare("SELECT id_usuario, nome, tipo FROM usuario WHERE email = ? AND senha = ?");
         $stmt->bind_param("ss", $email, $senha);
         $stmt->execute();
         $stmt->store_result();
 
         // Verifica se o usuário foi encontrado
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($nome, $tipo);
+            $stmt->bind_result($id_usuario, $nome, $tipo);
             $stmt->fetch();
 
             // Retorna os dados do usuário em JSON
             echo json_encode([
                 "status" => 200,
                 "mensagem" => "Autenticação bem-sucedida",
+                "id_usuario" => $id_usuario, // Envia o ID do usuário
                 "nome" => $nome,
                 "tipo" => $tipo
             ]);

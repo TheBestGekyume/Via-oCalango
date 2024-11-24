@@ -8,7 +8,6 @@ import axios from 'axios';
 export function Home() {
   const token = window.sessionStorage.getItem("token");
   const typeUser = Number(window.sessionStorage.getItem("typeUser"));
-  const [itemNav, setItemNav] = useState(Number(window.sessionStorage.getItem("itemNav")) || 0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [viagens, setViagens] = useState([]); // Controle da lista de viagens
 
@@ -45,16 +44,16 @@ export function Home() {
         {typeUser === 0 &&
           <Link to="/passagens" onClick={() => window.sessionStorage.setItem("itemNav", 2)}>
             <button className='btn btn-lg text-white mb-5' type='button'>
-              <Link onClick={() => setItemNav(2)} className='text-decoration-none text-white' to="/passagens">
-                <h3>COMPRE ANTECIPADO E GANHE 10% DE DESCONTO</h3>
-              </Link>
+              <h3>COMPRE ANTECIPADO E GANHE 10% DE DESCONTO</h3>
             </button>
           </Link>
         }
 
-        {typeUser === 1 && <button className='btn btn-lg text-white mb-5' type='button' onClick={openModal}>
-          Cadastrar viagem
-        </button>}
+        {typeUser === 1 &&
+          <button className='btn btn-lg text-white mb-5' type='button' onClick={openModal}>
+            Cadastrar viagem
+          </button>
+        }
 
         <section className='mx-5 rounded-4'>
           <Card viagens={viagens} />

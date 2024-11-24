@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DestinoUser } from '../../../components/Destino-usuario/DestinoUser.jsx';
-import search from "../../../assets/search.png";
-import "./passagens.scss";
-import { Load } from '../../../components/Load.jsx';
 import { PassagemInfo } from '../../../components/Passagem-Info/PassagemInfo.jsx';
-import { DetalhesViagem } from '../../../components/DetalhesViagem/DetalhesViagem.jsx';
+import "./passagens.scss";
+
 
 export function Passagens() {
     useEffect(() => {
