@@ -25,7 +25,6 @@ export function Home() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // Função para atualizar as viagens
   const refreshViagens = () => {
     axios.get('http://localhost/viacaocalango/BackEnd/crudViagem/listarViagem.php')
       .then((response) => {
@@ -37,13 +36,13 @@ export function Home() {
   };
 
   useEffect(() => {
-    refreshViagens(); // Carrega as viagens inicialmente
+    refreshViagens();
   }, []);
 
   if (token) {
     return (
       <div id='home' className='text-white text-center pt-5'>
-        {typeUser === 0 && 
+        {typeUser === 0 &&
           <Link to="/passagens" onClick={() => window.sessionStorage.setItem("itemNav", 2)}>
             <button className='btn btn-lg text-white mb-5' type='button'>
               <Link onClick={() => setItemNav(2)} className='text-decoration-none text-white' to="/passagens">
