@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DestinoUser } from '../../../components/Destino-usuario/DestinoUser.jsx';
-import search from "../../../assets/search.png";
-import "./passagens.scss";
-import { Load } from '../../../components/Load.jsx';
 import { PassagemInfo } from '../../../components/Passagem-Info/PassagemInfo.jsx';
-import { DetalhesViagem } from '../../../components/DetalhesViagem/DetalhesViagem.jsx';
+import "./passagens.scss";
+
 
 export function Passagens() {
     useEffect(() => {
@@ -19,7 +17,6 @@ export function Passagens() {
     const navigate = useNavigate();
     const token = window.sessionStorage.getItem("token");
     const [local, setLocal] = useState(null);
-    const [detalhesViagem, setDetalhesViagem] = useState(null);
 
     useEffect(() => {
         if (!token) {
@@ -34,11 +31,9 @@ export function Passagens() {
                 <div className='w-100 px-4'>
                     <DestinoUser setLocal={setLocal} />
                 </div>
-                {!detalhesViagem && (
-                    <section className='d-flex flex-wrap'>
-                        <PassagemInfo /* setDetalhesViagem={setDetalhesViagem} */ local={local} />
-                    </section>
-                )}
+                <section className='d-flex flex-wrap'>
+                    <PassagemInfo  local={local} />
+                </section>
             </div>
         );
     }

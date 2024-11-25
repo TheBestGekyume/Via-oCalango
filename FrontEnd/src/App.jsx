@@ -5,8 +5,8 @@ import { Login } from './pages/Login/Login.jsx';
 import { Home } from './pages/defaultUser/Home/Home.jsx';
 import { About } from './pages/defaultUser/About/About.jsx';
 import { Passagens } from './pages/defaultUser/Passagens/Passagens.jsx';
-import { Admin } from './pages/adminUser/Admin/Admin.jsx';
 import { EscolherAssento } from './pages/defaultUser/EscolherAssento/EscolherAssento.jsx';
+import { MinhasViagens } from './pages/defaultUser/MinhasViagens/MinhasViagens.jsx';
 //components
 import { Footer } from './components/Footer/Footer.jsx';
 import { NavBar } from './components/NavBar/NavBar.jsx';
@@ -26,7 +26,7 @@ export function App() {
             <Route path="/about" element={<About />} />
             <Route path="/passagens" element={<Passagens />} />
             <Route path="/escolherAssento" element={<EscolherAssento />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/minhasViagens" element={<MinhasViagens />} /> 
           </Routes>
         </main>
       </div>

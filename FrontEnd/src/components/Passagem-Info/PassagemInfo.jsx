@@ -35,16 +35,15 @@ export function PassagemInfo({ local }) {
         );
     }
 
-    // Função para extrair a cidade antes do "-"
     const getCityName = (city) => {
-        return city.split(" -")[0].trim(); // Pega tudo antes do " -"
+        return city.split(" -")[0].trim();
     };
 
     const normalizeString = (str) => {
         return str
-            .normalize('NFD') // Decompor os caracteres acentuados
-            .replace(/[\u0300-\u036f]/g, "") // Remove os acentos
-            .toLowerCase(); // Converte para minúsculo
+            .normalize('NFD') 
+            .replace(/[\u0300-\u036f]/g, "") 
+            .toLowerCase();
     };
 
     const viagensFiltradas = local && local.origem && local.destino

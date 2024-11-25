@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/11/2024 às 01:14
+-- Tempo de geração: 25/11/2024 às 02:00
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -53,8 +53,18 @@ INSERT INTO `usuario` (`id_usuario`, `nome`, `senha`, `email`, `tipo`) VALUES
 CREATE TABLE `usuario_viagem` (
   `usuario_viagem_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
-  `viagem_id` int(11) NOT NULL
+  `viagem_id` int(11) NOT NULL,
+  `assentos` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`assentos`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `usuario_viagem`
+--
+
+INSERT INTO `usuario_viagem` (`usuario_viagem_id`, `usuario_id`, `viagem_id`, `assentos`) VALUES
+(3, 5, 21, '[\"A2\"]'),
+(4, 5, 21, '[\"A3\",\"A4\",\"B2\"]'),
+(5, 5, 26, '[\"B11\",\"A11\",\"A1\",\"B1\"]');
 
 -- --------------------------------------------------------
 
@@ -79,9 +89,13 @@ CREATE TABLE `viagem` (
 --
 
 INSERT INTO `viagem` (`id_viagem`, `imgUrl`, `origem`, `destino`, `horario_de_partida`, `data_de_partida`, `assentos`, `preco`, `status`) VALUES
-(21, 'https://content.r9cdn.net/rimg/dimg/f3/ac/2ca2def3-city-26168-164fc0204f5.jpg', 'Rio de Janeiro - RJ', 'Salvador - BA', '04:50', '10/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":true},{\"nro_assento\":\"B2\",\"disponivel\":true},{\"nro_assento\":\"B3\",\"disponivel\":true},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true}]', 120.5, 1),
+(21, 'https://content.r9cdn.net/rimg/dimg/f3/ac/2ca2def3-city-26168-164fc0204f5.jpg', 'Rio de Janeiro - RJ', 'Salvador - BA', '04:50', '10/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":false},{\"nro_assento\":\"A2\",\"disponivel\":false},{\"nro_assento\":\"A3\",\"disponivel\":false},{\"nro_assento\":\"A4\",\"disponivel\":false},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":false},{\"nro_assento\":\"B2\",\"disponivel\":false},{\"nro_assento\":\"B3\",\"disponivel\":true},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true}]', 120.5, 1),
 (22, 'https://www.pjf.mg.gov.br/noticias/arquivo/0609_sedic_ranking_112728.jpg', 'São Paulo - SP', 'Juiz de Fora - MG', '04:50', '10/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":true},{\"nro_assento\":\"B2\",\"disponivel\":true},{\"nro_assento\":\"B3\",\"disponivel\":true},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true}]', 120.5, 1),
-(23, 'https://www.sienge.com.br/wp-content/uploads/2023/11/bairros-mais-caros-de-belo-horizonte.jpg', 'Rio de Janeiro - RJ', 'Belo Horizonte - MG', '09:00', '15/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"A6\",\"disponivel\":true},{\"nro_assento\":\"A7\",\"disponivel\":true},{\"nro_assento\":\"B0.5\",\"disponivel\":true},{\"nro_assento\":\"B1.5\",\"disponivel\":true},{\"nro_assento\":\"B2.5\",\"disponivel\":true},{\"nro_assento\":\"B3.5\",\"disponivel\":true},{\"nro_assento\":\"B4.5\",\"disponivel\":true},{\"nro_assento\":\"B5.5\",\"disponivel\":true},{\"nro_assento\":\"B6.5\",\"disponivel\":true},{\"nro_assento\":\"B7.5\",\"disponivel\":true}]', 150, 1);
+(23, 'https://www.sienge.com.br/wp-content/uploads/2023/11/bairros-mais-caros-de-belo-horizonte.jpg', 'Rio de Janeiro - RJ', 'Belo Horizonte - MG', '09:00', '15/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"A6\",\"disponivel\":true},{\"nro_assento\":\"A7\",\"disponivel\":true},{\"nro_assento\":\"B0.5\",\"disponivel\":true},{\"nro_assento\":\"B1.5\",\"disponivel\":true},{\"nro_assento\":\"B2.5\",\"disponivel\":true},{\"nro_assento\":\"B3.5\",\"disponivel\":true},{\"nro_assento\":\"B4.5\",\"disponivel\":true},{\"nro_assento\":\"B5.5\",\"disponivel\":true},{\"nro_assento\":\"B6.5\",\"disponivel\":true},{\"nro_assento\":\"B7.5\",\"disponivel\":true}]', 150, 1),
+(24, 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Jardim_Bot%C3%A2nico_Centro_Curitiba.jpg/1200px-Jardim_Bot%C3%A2nico_Centro_Curitiba.jpg', 'São Paulo - SP', 'Curitiba - PR', '08:30', '12/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"A6\",\"disponivel\":true},{\"nro_assento\":\"A7\",\"disponivel\":true},{\"nro_assento\":\"A8\",\"disponivel\":true},{\"nro_assento\":\"A9\",\"disponivel\":true},{\"nro_assento\":\"A10\",\"disponivel\":true},{\"nro_assento\":\"A11\",\"disponivel\":true},{\"nro_assento\":\"A12\",\"disponivel\":true},{\"nro_assento\":\"A13\",\"disponivel\":true},{\"nro_assento\":\"A14\",\"disponivel\":true},{\"nro_assento\":\"A15\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":true},{\"nro_assento\":\"B2\",\"disponivel\":true},{\"nro_assento\":\"B3\",\"disponivel\":true},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true},{\"nro_assento\":\"B6\",\"disponivel\":true},{\"nro_assento\":\"B7\",\"disponivel\":true},{\"nro_assento\":\"B8\",\"disponivel\":true},{\"nro_assento\":\"B9\",\"disponivel\":true},{\"nro_assento\":\"B10\",\"disponivel\":true},{\"nro_assento\":\"B11\",\"disponivel\":true},{\"nro_assento\":\"B12\",\"disponivel\":true},{\"nro_assento\":\"B13\",\"disponivel\":true},{\"nro_assento\":\"B14\",\"disponivel\":true},{\"nro_assento\":\"B15\",\"disponivel\":true}]', 250.5, 1),
+(25, 'https://www.melhoresdestinos.com.br/wp-content/uploads/2017/11/o-que-fazer-em-porto-alegre-gasometro2-1-820x443.jpg', 'Florianópolis - SC', 'Porto Alegre - RS', '06:45', '18/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":true},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"A6\",\"disponivel\":true},{\"nro_assento\":\"A7\",\"disponivel\":true},{\"nro_assento\":\"A8\",\"disponivel\":true},{\"nro_assento\":\"A9\",\"disponivel\":true},{\"nro_assento\":\"A10\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":true},{\"nro_assento\":\"B2\",\"disponivel\":true},{\"nro_assento\":\"B3\",\"disponivel\":true},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true},{\"nro_assento\":\"B6\",\"disponivel\":true},{\"nro_assento\":\"B7\",\"disponivel\":true},{\"nro_assento\":\"B8\",\"disponivel\":true},{\"nro_assento\":\"B9\",\"disponivel\":true},{\"nro_assento\":\"B10\",\"disponivel\":true}]', 280, 1),
+(26, 'https://cdn.blablacar.com/wp-content/uploads/br/2023/11/05100004/campo-grande-ms-5.webp', 'Foz do Iguaçu - PR', 'Campo Grande - MS', '09:30', '10/02/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":false},{\"nro_assento\":\"A2\",\"disponivel\":true},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"A6\",\"disponivel\":true},{\"nro_assento\":\"A7\",\"disponivel\":true},{\"nro_assento\":\"A8\",\"disponivel\":true},{\"nro_assento\":\"A9\",\"disponivel\":true},{\"nro_assento\":\"A10\",\"disponivel\":true},{\"nro_assento\":\"A11\",\"disponivel\":false},{\"nro_assento\":\"B1\",\"disponivel\":false},{\"nro_assento\":\"B2\",\"disponivel\":true},{\"nro_assento\":\"B3\",\"disponivel\":true},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true},{\"nro_assento\":\"B6\",\"disponivel\":true},{\"nro_assento\":\"B7\",\"disponivel\":true},{\"nro_assento\":\"B8\",\"disponivel\":true},{\"nro_assento\":\"B9\",\"disponivel\":true},{\"nro_assento\":\"B10\",\"disponivel\":true},{\"nro_assento\":\"B11\",\"disponivel\":false}]', 230.99, 1),
+(27, 'https://marazulreceptivo.com.br/wp-content/uploads/2023/03/Praia-do-forte-caninde-soares.jpg', 'Fortaleza - CE', 'Natal - RN', '07:00', '28/01/2025', '[{\"nro_assento\":\"A1\",\"disponivel\":false},{\"nro_assento\":\"A2\",\"disponivel\":false},{\"nro_assento\":\"A3\",\"disponivel\":true},{\"nro_assento\":\"A4\",\"disponivel\":true},{\"nro_assento\":\"A5\",\"disponivel\":true},{\"nro_assento\":\"A6\",\"disponivel\":true},{\"nro_assento\":\"A7\",\"disponivel\":true},{\"nro_assento\":\"A8\",\"disponivel\":true},{\"nro_assento\":\"A9\",\"disponivel\":true},{\"nro_assento\":\"B1\",\"disponivel\":false},{\"nro_assento\":\"B2\",\"disponivel\":false},{\"nro_assento\":\"B3\",\"disponivel\":true},{\"nro_assento\":\"B4\",\"disponivel\":true},{\"nro_assento\":\"B5\",\"disponivel\":true},{\"nro_assento\":\"B6\",\"disponivel\":true},{\"nro_assento\":\"B7\",\"disponivel\":true},{\"nro_assento\":\"B8\",\"disponivel\":true},{\"nro_assento\":\"B9\",\"disponivel\":true}]', 150.25, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -121,13 +135,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `usuario_viagem`
 --
 ALTER TABLE `usuario_viagem`
-  MODIFY `usuario_viagem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `usuario_viagem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `viagem`
 --
 ALTER TABLE `viagem`
-  MODIFY `id_viagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_viagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Restrições para tabelas despejadas

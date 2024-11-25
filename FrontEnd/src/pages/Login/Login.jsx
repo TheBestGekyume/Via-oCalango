@@ -27,6 +27,7 @@ export function Login({ setToken }) {
                 window.sessionStorage.setItem('typeUser', tipo);
                 window.sessionStorage.setItem('nome', nome);
                 window.sessionStorage.setItem('id_usuario', id_usuario);
+                console.log(response.data);
                 setToken(status);
                 navigate("/");
             })

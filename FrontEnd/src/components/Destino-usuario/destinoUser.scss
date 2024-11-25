@@ -57,12 +57,17 @@
 .buscar-viagem{
     background-color: $amarelo;
     border: 1px solid $amarelo;
-    width: 100%;
     height: 50%;
     border-radius: 8px;
     padding: 6px;
     span{
         color: #000;
         font-weight: 700;
+    }
+    opacity: 0.75;
+    transition: 250ms;
+
+    &:hover{
+        opacity: 1;
     }
 }

@@ -9,7 +9,7 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM viagem";
+$sql = "SELECT * FROM viagem ORDER BY id_viagem DESC";
 $result = $conn->query($sql);
 
 $viagens = [];

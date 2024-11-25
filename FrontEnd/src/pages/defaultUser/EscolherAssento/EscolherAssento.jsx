@@ -5,8 +5,8 @@ import onibus from "../../../assets/onibus.png";
 import disponivel from "../../../assets/assentoDisponivel.png";
 import indisponivel from "../../../assets/assentoIndisponivel.png";
 import selecionado from "../../../assets/assentoSelecionado.png";
-import './escolherAssento.scss';
 import { LoadConfirm } from '../../../components/LoadConfirm';
+import './escolherAssento.scss';
 
 export function EscolherAssento() {
     const [viagem, setViagem] = useState(null);
@@ -29,6 +29,7 @@ export function EscolherAssento() {
             return;
         }
 
+        // Requisição para pegar dados da viagem
         axios.get('http://localhost/viacaocalango/BackEnd/crudViagem/listarViagem.php')
             .then((response) => {
                 const viagens = response.data;
@@ -47,6 +48,7 @@ export function EscolherAssento() {
             });
     }, [viagemId, navigate]);
 
+    // Função para alternar a seleção dos assentos
     const toggleSelecionarAssento = (nro_assento) => {
         if (assentosSelecionados.includes(nro_assento)) {
             setAssentosSelecionados((prev) => prev.filter((assento) => assento !== nro_assento));
@@ -55,29 +57,28 @@ export function EscolherAssento() {
         }
     };
 
+    // Função para enviar os dados da compra
     const handleCompra = async () => {
+        // Envia os assentos selecionados
         const assentosIndisponiveis = assentosSelecionados.map((nro_assento) => ({ nro_assento }));
         const objetoCompra = {
             id_viagem: viagem.id,
             usuario_id: usuarioId,
             assentos_indisponiveis: assentosIndisponiveis
         };
+
         console.log("JSON para requisição:", JSON.stringify(objetoCompra));
 
         try {
-            const response = await axios.put("http://localhost/viacaocalango/BackEnd/crudUsuario/comprarAssento.php",
-                objetoCompra
-            )
-
+            const response = await axios.put("http://localhost/viacaocalango/BackEnd/crudUsuario/comprarAssento.php", objetoCompra);
             console.log(response.data);
             setConfirmarPedido(true);
-
         } catch (error) {
             console.log(error.response);
         }
-
     };
 
+    // Retorna a imagem do assento dependendo do estado de seleção
     const getAssentoImage = (assento) => {
         if (assentosSelecionados.includes(assento.nro_assento)) {
             return selecionado;
@@ -89,6 +90,7 @@ export function EscolherAssento() {
         return <p>Carregando...</p>;
     }
 
+    // Filtra os assentos por fileira
     const fileiraA = viagem.assentos.filter(assento => assento.nro_assento.startsWith('A'));
     const fileiraB = viagem.assentos.filter(assento => assento.nro_assento.startsWith('B'));
 
@@ -101,18 +103,18 @@ export function EscolherAssento() {
 
                 {!confirmarPedido && <h3 style={{ marginRight: "2rem" }} className='text-white'>Selecionar Assentos - Viagem ID: {viagem.id}</h3>}
             </div>
-            {!confirmarPedido && <div className="onibus-container d-flex justify-content-center flex-wrap ">
+
+            {!confirmarPedido && <div className="onibus-container d-flex justify-content-center flex-wrap">
                 <img src={onibus} alt="Ônibus" className="onibus-imagem position-absolute" />
-                <div className='assentos-container d-flex flex-column '>
+                <div className='assentos-container d-flex flex-column'>
                     <div style={{ display: "flex", flexDirection: "row" }}>
                         {fileiraA.map((assento, index) => (
-                            <div style={{ margin: '0', padding: '0' }}>
+                            <div style={{ margin: '0', padding: '0' }} key={index}>
                                 <p style={{ margin: '0', padding: '0' }}>{assento.nro_assento}</p>
                                 <img
-                                    key={index}
                                     src={getAssentoImage(assento)}
                                     alt={`Assento ${assento.nro_assento}`}
-                                    className="assento-imagem fileira-A"
+                                    className="assento-imagem fileira-A rounded"
                                     onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
                                 />
                             </div>
@@ -120,47 +122,48 @@ export function EscolherAssento() {
                     </div>
                     <div style={{ display: "flex", flexDirection: "row" }}>
                         {fileiraB.map((assento, index) => (
-                            <div style={{ margin: '0', padding: '0' }}>
-                                <p style={{ margin: '0', padding: '0' }}>{assento.nro_assento}</p>
+                            <div className='p-0 m-0' key={index}>
+                                <p className='p-0 m-0'>{assento.nro_assento}</p>
                                 <img
-                                    key={index}
                                     src={getAssentoImage(assento)}
                                     alt={`Assento ${assento.nro_assento}`}
-                                    className="assento-imagem fileira-B"
+                                    className="assento-imagem fileira-B rounded"
                                     onClick={() => assento.disponivel && toggleSelecionarAssento(assento.nro_assento)}
                                 />
                             </div>
                         ))}
                     </div>
                 </div>
-                <section style={{ width: "100%", marginTop: '10rem ', display: 'flex', justifyContent: "space-around", alignItems: 'center' }}>
+                <section style={{ width: "100%", marginTop: '10rem', display: 'flex', justifyContent: "space-around", alignItems: 'center' }}>
                     <div className='container-tipo-assento'>
-                        <figure className='container-img-tipo'>
+                        <figure className='d-flex align-items-end text-white fw-bolder me-3 gap-2'>
                             <img className="assento-imagem fileira-B" src={disponivel} style={{ width: "60px" }} />
                             <p>Disponível</p>
-                        </figure >
+                        </figure>
 
-                        <figure className='container-img-tipo'>
+                        <figure className='d-flex align-items-end text-white fw-bolder me-3 gap-2'>
                             <img className="assento-imagem fileira-B" src={indisponivel} style={{ width: "60px", borderRadius: '8px' }} />
                             <p>Indisponível</p>
                         </figure>
 
-                        <figure className='container-img-tipo'>
+                        <figure className='d-flex align-items-end text-white fw-bolder me-3 gap-2'>
                             <img className="assento-imagem fileira-B" src={selecionado} style={{ width: "60px", borderRadius: '8px' }} />
                             <p>Selecionado</p>
                         </figure>
                     </div>
-                    <button className='buscar-viagem' style={{ width: '15%' }} onClick={() => {
-                        if (assentosSelecionados.map((nro_assento) => ({ nro_assento })).length > 0) {
+                    <button className='buscar-viagem' onClick={() => {
+                        if (assentosSelecionados.length > 0) {
                             handleCompra();
                         } else {
-                            alert('Selecione um ou mais assentos para comprar.')
+                            alert('Selecione um ou mais assentos para comprar.');
                         }
-                    }}>Comprar</button>
+                    }}>
+                        Comprar
+                    </button>
                 </section>
             </div>}
             {confirmarPedido && <div>
-                <h1 style={{ color: '#09CE9F' }}>Pasasgem comprada com sucesso!</h1>
+                <h1 style={{ color: '#09CE9F' }}>Passagem comprada com sucesso!</h1>
                 <h4 style={{ color: '#FFF' }}>Consulte mais detalhes em Meus Pedidos.</h4>
                 <LoadConfirm />
             </div>}
