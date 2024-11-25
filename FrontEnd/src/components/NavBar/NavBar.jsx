@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import "./navBar.scss";
 import busIcon from "../../assets/busIcon.png";
@@ -33,6 +33,9 @@ export function NavBar({ setToken }) {
         </li>
         <li className={itemNav === 2 ? "styleLi" : "opacity-50" } >
           <Link onClick={() => { setItemNav(2) }} className='link-router-dom' to="/passagens">Passagens</Link>
+        </li>
+        <li className={itemNav === 3 ? "styleLi" : "opacity-50" } >
+          <Link onClick={() => { setItemNav(3) }} className='link-router-dom' to="/minhasViagens">Minhas Viagens</Link>
         </li>
         <li onClick={logoutUser} className='opacity-50'>
           Sair

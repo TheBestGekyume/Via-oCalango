@@ -17,7 +17,6 @@ export function Passagens() {
     const navigate = useNavigate();
     const token = window.sessionStorage.getItem("token");
     const [local, setLocal] = useState(null);
-    const [detalhesViagem, setDetalhesViagem] = useState(null);
 
     useEffect(() => {
         if (!token) {
@@ -32,11 +31,9 @@ export function Passagens() {
                 <div className='w-100 px-4'>
                     <DestinoUser setLocal={setLocal} />
                 </div>
-                {!detalhesViagem && (
-                    <section className='d-flex flex-wrap'>
-                        <PassagemInfo /* setDetalhesViagem={setDetalhesViagem} */ local={local} />
-                    </section>
-                )}
+                <section className='d-flex flex-wrap'>
+                    <PassagemInfo  local={local} />
+                </section>
             </div>
         );
     }
