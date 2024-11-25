@@ -42,9 +42,11 @@ export function NavBar({ setToken }) {
         <li className={itemNav === 2 ? "styleLi" : "opacity-50"} >
           <Link onClick={() => { setItemNav(2) }} className='link-router-dom' to="/passagens">Passagens</Link>
         </li>
-        <li className={itemNav === 3 ? "styleLi" : "opacity-50"} >
-          <Link onClick={() => { setItemNav(3) }} className='link-router-dom' to="/minhasViagens">Minhas Viagens</Link>
-        </li>
+        {tipoUsuario === "0" && (
+          <li className={itemNav === 3 ? "styleLi" : "opacity-50"} >
+            <Link onClick={() => { setItemNav(3) }} className='link-router-dom' to="/minhasViagens">Minhas Viagens</Link>
+          </li>
+        )}
         <li onClick={logoutUser} className='opacity-50'>
           Sair
         </li>

@@ -14,11 +14,9 @@ $result = $conn->query($sql);
 
 $viagens = [];
 
-// Verifica se há resultados e popula o array de viagens
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Decodifica a coluna 'assentos' que está armazenada como string JSON
-        $assentos = json_decode($row['assentos'], true); // Transforma a string JSON em um array de objetos
+        $assentos = json_decode($row['assentos'], true); 
         
         $viagens[] = [
             'id_viagem' => $row['id_viagem'],
@@ -26,20 +24,17 @@ if ($result->num_rows > 0) {
             'destino' => $row['destino'],
             'horario_de_partida' => $row['horario_de_partida'],
             'data_de_partida' => $row['data_de_partida'],
-            'assentos' => $assentos,  // Agora 'assentos' é um array de objetos
+            'assentos' => $assentos,  
             'preco' => $row['preco'],
             'status' => $row['status'],
-            'imgUrl' => isset($row['imgUrl']) ? $row['imgUrl'] : null // Verifica se 'imgUrl' existe
+            'imgUrl' => isset($row['imgUrl']) ? $row['imgUrl'] : null 
         ];
     }
 }
 
-// Fecha a conexão com o banco de dados
 $conn->close();
 
-// Define o tipo de conteúdo como JSON
 header('Content-Type: application/json');
 
-// Retorna as viagens como JSON
 echo json_encode($viagens);
 ?>

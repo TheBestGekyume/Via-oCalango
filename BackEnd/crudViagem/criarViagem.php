@@ -7,16 +7,13 @@ header("Content-Type: application/json; charset=UTF-8");
 
 $conn = new mysqli("localhost", "root", "", "viacaocalango");
 
-// Verifica se a conexão falhou
 if ($conn->connect_error) {
     die(json_encode(["error" => "Conexão falhou: " . $conn->connect_error]));
 }
 
-// Verifica se o método de requisição é POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
 
-    // Valida os dados da requisição
     if (!isset($data['origem'], $data['destino'], $data['horario_de_partida'],
     $data['data_de_partida'], $data['preco'], $data['assentos'], $data['imgUrl'])) {
         echo json_encode(["error" => "Campos obrigatórios ausentes."]);
@@ -24,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
-    // Obtém e valida os dados
     $origem = $conn->real_escape_string($data['origem']);
     $destino = $conn->real_escape_string($data['destino']);
     $horario_de_partida = $conn->real_escape_string($data['horario_de_partida']);
@@ -33,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $imgUrl = $conn->real_escape_string($data['imgUrl']);
     $total_assentos = intval($data['assentos']); 
 
-    // Gera o JSON com os assentos
     $assentos = [];
     $metade = $total_assentos / 2;
     
@@ -45,19 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $assento->nro_assento = $letra . $numero;
         $assento->disponivel = true;
     
-        // Adiciona o objeto ao array
         $assentos[] = $assento;
     }
     
     $assentos_json = json_encode($assentos);
     
 
-    // Monta a query de inserção usando prepared statements
     $stmt = $conn->prepare("INSERT INTO viagem (origem, destino, horario_de_partida, data_de_partida, preco, status, imgUrl, assentos) 
                             VALUES (?, ?, ?, ?, ?, 1, ?, ?)");
     $stmt->bind_param("ssssdss", $origem, $destino, $horario_de_partida, $data_de_partida, $preco, $imgUrl, $assentos_json);
 
-    // Executa a query
     if ($stmt->execute()) {
         echo json_encode(["success" => "Nova viagem inserida com sucesso!"]);
     } else {

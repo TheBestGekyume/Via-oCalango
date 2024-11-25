@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             VALUES (?, ?, ?, ?)");
     $stmt->bind_param("sssi", $nome, $senha, $email, $tipo);
 
-    // Executa a query
     if ($stmt->execute()) {
         echo json_encode(["success" => "Novo usuario inserida com sucesso!"]);
     } else {
