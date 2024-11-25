@@ -1,24 +1,28 @@
 <?php
-// Conectar ao banco de dados
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204); 
+    exit;
+}
+
 $conn = new mysqli("localhost", "root", "", "viacaocalango");
 
-// Verificar conexão
 if ($conn->connect_error) {
     die("Erro ao conectar ao banco de dados: " . $conn->connect_error);
 }
 
-// Função para excluir a viagem
 function excluirViagem($idExcluir) {
     global $conn;
 
-    // Preparar a consulta SQL para excluir a viagem
     $sql = "DELETE FROM viagem WHERE id_viagem = ?";
 
-    // Preparar e vincular
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $idExcluir);
 
-        // Executar e verificar se foi bem-sucedido
         if ($stmt->execute()) {
             $stmt->close();
             return ["status" => "success", "message" => "Viagem excluída com sucesso!"];
@@ -31,12 +35,9 @@ function excluirViagem($idExcluir) {
     }
 }
 
-// Lógica principal para requisição POST
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-    // Recebe os dados do corpo da requisição (JSON)
     $data = json_decode(file_get_contents("php://input"), true);
 
-    // Verifica se o ID da viagem foi passado
     if (isset($data["id_viagem"])) {
         $id_viagem = $data["id_viagem"];
         $response = excluirViagem($id_viagem);
@@ -44,11 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
         $response = ["status" => "error", "message" => "ID da viagem não fornecido."];
     }
 
-    // Retorna a resposta como JSON
     header('Content-Type: application/json');
     echo json_encode($response);
 }
 
-// Fecha a conexão com o banco de dados
 $conn->close();
 ?>

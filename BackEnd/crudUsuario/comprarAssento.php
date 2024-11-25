@@ -19,22 +19,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         $assentos_indisponiveis = $data['assentos_indisponiveis'];
         $usuario_id = $data['usuario_id'];
 
-        // 1. Buscar os assentos da viagem
         $sql = "SELECT assentos FROM viagem WHERE id_viagem = $id_viagem";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $assentos = json_decode($row['assentos'], true); // Convertendo para array
+            $assentos = json_decode($row['assentos'], true);
 
             $assentos_comprados = [];
 
-            // 2. Atualizar a disponibilidade dos assentos
             foreach ($assentos_indisponiveis as $assento_indisponivel) {
                 foreach ($assentos as &$assento) {
                     if ($assento['nro_assento'] === $assento_indisponivel['nro_assento'] && $assento['disponivel'] == true) {
                         $assento['disponivel'] = false;
-                        $assentos_comprados[] = $assento['nro_assento']; // Armazenando o número do assento comprado
+                        $assentos_comprados[] = $assento['nro_assento']; 
                         break;
                     }
                 }
@@ -47,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                            WHERE id_viagem = $id_viagem";
 
             if ($conn->query($sql_update) === TRUE) {
-                // 4. Inserir os assentos comprados na tabela intermediária usuario_viagem
                 $assentos_comprados_json = json_encode($assentos_comprados);
 
                 $sql_insert = "INSERT INTO usuario_viagem (usuario_id, viagem_id, assentos) 
