@@ -21,11 +21,12 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(formData);
       const response = await axios.post('http://localhost/viacaocalango/BackEnd/crudViagem/criarViagem.php', formData);
       alert(response.data.success || response.data.error);
       if (response.data.success) {
         onClose();
-        refreshViagens(); // Atualiza a lista de viagens após adicionar nova viagem
+        refreshViagens();
       }
     } catch (error) {
       console.error("Erro ao adicionar viagem", error);
@@ -36,11 +37,11 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens }) {
 
   return (
     <div className="modal-overlay vw-100">
-      <div className="modal-content w-50">
+      <div className="modal-content w-50 p-3 pb-4 px-5">
         <button className="close-button px-3 m-2 fs-2 rounded-4" onClick={onClose}>X</button>
         <h2>Adicionar Nova Viagem</h2>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='mt-3'>
           <section className='border-0 d-flex flex-column align-items-center gap-3'>
             <div className='d-flex gap-2 align-items-end'>
               <label className='fs-5 pe-3'>Origem:</label>
@@ -71,7 +72,7 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens }) {
               <input type="text" name="imgUrl" value={formData.imgUrl} onChange={handleChange} required />
             </div>
           </section>
-          <button type="submit">Adicionar Viagem</button>
+          <button type="submit" className='mt-2'>Adicionar Viagem</button>
         </form>
       </div>
     </div>
