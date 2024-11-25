@@ -110,7 +110,7 @@ export function PassagemInfo({ local }) {
                         </div>
                     </div>
                     <div className="d-flex align-items-center">
-                        <p>A partir de <strong>R${viagem.preco}</strong></p>
+                        <p>A partir de <strong>R${parseFloat(viagem.preco).toFixed(2)}</strong></p>
 
                         
                     </div>
