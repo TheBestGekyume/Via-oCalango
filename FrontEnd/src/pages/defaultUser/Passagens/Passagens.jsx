@@ -20,7 +20,6 @@ export function Passagens() {
             navigate('/login');
         }
     }, [token, navigate]);
-    console.log(local)
 
     if (token) {
         return (

@@ -29,7 +29,6 @@ export function DestinoUser({ setLocal, local }) {
     };
 
     const validarOrigemDestino = (origem, destino) => {
-        console.log(origem)
         if (origem && destino) {
             return true;
         } else {
