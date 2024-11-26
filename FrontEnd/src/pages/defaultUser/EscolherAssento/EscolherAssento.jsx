@@ -20,6 +20,11 @@ export function EscolherAssento() {
     const [totalPassagem, setTotalPassagem] = useState(0);
     const [modalError, setModalError] = useState(false);
 
+    const formatarDataPTBR = (dataISO) => {
+        const [year, month, day] = dataISO.split('-');
+        return `${day}/${month}/${year}`;
+    };
+
     useEffect(() => {
         const token = window.sessionStorage.getItem("token");
         if (!token) {
@@ -41,7 +46,9 @@ export function EscolherAssento() {
                     setViagem({
                         id: viagemSelecionada.id_viagem,
                         assentos: viagemSelecionada.assentos,
-                        preco: viagemSelecionada.preco
+                        preco: viagemSelecionada.preco,
+                        data_de_partida: viagemSelecionada.data_de_partida,
+                        horario_de_partida: viagemSelecionada.horario_de_partida
                     });
                 } else {
                     console.error("Viagem não encontrada.");
@@ -52,15 +59,12 @@ export function EscolherAssento() {
             });
     }, [viagemId, navigate]);
 
-    // Calcula o total a pagar sempre que assentosSelecionados ou viagem.preco mudar
     useEffect(() => {
         if (viagem) {
-            // Usa Math.ceil para arredondar o número de assentos para cima
             setTotalPassagem(Math.ceil(assentosSelecionados.length) * viagem.preco);
         }
     }, [assentosSelecionados, viagem]);
 
-    // Função para alternar a seleção dos assentos
     const toggleSelecionarAssento = (nro_assento) => {
         setAssentosSelecionados((prev) =>
             prev.includes(nro_assento)
@@ -109,6 +113,8 @@ export function EscolherAssento() {
         setModalError(false);
     }
 
+
+    console.log(viagem)
     return (
         <div className="container-selecao-assentos" style={{ height: '100vh' }}>
             <div style={{ width: '80%', zIndex: '10', display: "flex", justifyContent: 'flex-end', position: 'fixed', marginTop: '1rem' }}>
@@ -118,8 +124,11 @@ export function EscolherAssento() {
                 <svg style={{ cursor: 'pointer', marginLeft: '2rem' }} onClick={() => navigate(-1)} xmlns="http://www.w3.org/2000/svg" width="30" height="30" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
                     <path fill="#FFB803" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
                 </svg>
-
-                {!confirmarPedido && <h3 style={{ marginRight: "2rem" }} className='text-white'>Selecionar Assentos - Viagem ID: {viagem.id}</h3>}
+                <div>
+                    {!confirmarPedido && <h3 style={{ marginRight: "2rem" }} className='text-white'><strong>Selecionar Assentos</strong></h3>}
+                    {!confirmarPedido && <p style={{ marginRight: "2rem" }} className='text-white'><strong>Hora de Partida:</strong> {viagem.horario_de_partida}</p>}
+                    {!confirmarPedido && <p style={{ marginRight: "2rem" }} className='text-white'><strong>Data de Partida:</strong> {formatarDataPTBR(viagem.data_de_partida)}</p>}
+                </div>
             </div>
 
             {!confirmarPedido && (
@@ -190,7 +199,7 @@ export function EscolherAssento() {
                     <LoadConfirm />
                 </div>
             )}
-           {!confirmarPedido && <div className="total-container">
+            {!confirmarPedido && <div className="total-container">
                 <h3>Total a pagar: R$ {totalPassagem.toFixed(2)}</h3>
             </div>}
         </div>
