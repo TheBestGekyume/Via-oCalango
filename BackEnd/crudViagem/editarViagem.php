@@ -1,16 +1,19 @@
 <?php
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *"); // Permite todas as origens (substitua '*' pelo domínio específico se necessário)
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+
 $conn = new mysqli("localhost", "root", "", "viacaocalango");
 
-// Verifica se a conexão falhou
 if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
-// Verifica se o método de requisição é PUT
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $data = json_decode(file_get_contents("php://input"), true);
 
-    // Verifica se os campos necessários estão definidos
     if (isset($data['id_viagem'], $data['origem'], $data['destino'], 
               $data['horario_de_partida'], $data['data_de_partida'], 
               $data['preco'])) {
@@ -23,14 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         $preco = $data['preco'];
 
 
-        // Obtém os assentos atuais do banco de dados
         $sql = "SELECT assentos FROM viagem WHERE id_viagem = $id_viagem";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
 
-            // Monta a query de atualização dos dados da viagem
             $sql_update = "UPDATE viagem 
                            SET origem = '$origem', 
                                destino = '$destino', 
@@ -39,11 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                                preco = '$preco'
                            WHERE id_viagem = $id_viagem";
 
-            // Executa a query de atualização
             if ($conn->query($sql_update) === TRUE) {
-                echo "Viagem e assentos atualizados com sucesso!";
+                echo json_encode(["success" => "Viagem atualizada com sucesso!"]);
             } else {
-                echo "Erro ao atualizar a viagem: " . $conn->error;
+                echo json_encode(["error" => "Erro ao atualizar a viagem: " . $stmt->error]);
             }
         } else {
             echo "Viagem não encontrada!";

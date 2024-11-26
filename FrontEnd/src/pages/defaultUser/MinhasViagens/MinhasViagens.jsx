@@ -6,31 +6,33 @@ export function MinhasViagens() {
     const [viagens, setViagens] = useState([]);
     const [error, setError] = useState('');
 
-    // Função que irá fazer a requisição para pegar as viagens e assentos
+    const formatarDataPTBR = (dataISO) => {
+        const [year, month, day] = dataISO.split('-');
+        return `${day}/${month}/${year}`;
+    };
+
     const fetchViagens = async () => {
         try {
-            const usuarioId = sessionStorage.getItem('id_usuario'); // Pega o id_usuario da sessionLocation
+            const usuarioId = sessionStorage.getItem('id_usuario');
 
             if (!usuarioId) {
                 setError("ID do usuário não encontrado.");
                 return;
             }
 
-            const viagensResponse = await axios.post('http://localhost/viacaocalango/BackEnd/crudUsuario/listarViagensusuario.php', {
+            const viagensResponse = await axios.post('http://localhost/viacaocalango/BackEnd/crudUsuario/listarViagensUsuario.php', {
                 usuario_id: usuarioId
             });
 
             const viagensData = viagensResponse.data;
 
-            console.log(viagensData); // Verifique a estrutura da resposta
-
             if (viagensData.viagens && viagensData.viagens.length > 0) {
-                setViagens(viagensData.viagens); // Atualiza o estado com as viagens
+                setViagens(viagensData.viagens);
             } else {
                 setError("Você ainda não comprou nenhuma viagem.");
             }
 
-            setError(''); // Limpa qualquer erro
+            setError('');
 
         } catch (err) {
             console.error("Erro ao buscar as viagens:", err);
@@ -58,9 +60,9 @@ export function MinhasViagens() {
                                 <div className="card-body">
                                     <h5 className="card-title">{viagem.origem} → {viagem.destino}</h5>
                                     <p className="card-text">
-                                        <strong>Data:</strong> {viagem.data_de_partida} <br /> <br />
+                                        <strong>Data:</strong> {formatarDataPTBR(viagem.data_de_partida)} <br /> <br />
                                         <strong>Horário:</strong> {viagem.horario_de_partida} <br /> <br />
-                                        <strong>Valor Pago:</strong> R$ {parseFloat(viagem.preco).toFixed(2)} <br /> <br />
+                                        <strong>Valor Pago:</strong> R$ {parseFloat(viagem.preco * viagem.assentos.length).toFixed(2)} <br /> <br />
                                         <strong>Assentos:</strong>
                                         {viagem.assentos && viagem.assentos.length > 0 ? (
                                             viagem.assentos.map((assento, idx) => (
@@ -69,6 +71,9 @@ export function MinhasViagens() {
                                         ) : (
                                             <span>Sem assentos comprados</span>
                                         )}
+                                        <div style={{width: '100%', display: 'flex', justifyContent: "center", marginTop:'2rem' }}>
+                                            <strong>Viação Calango</strong>
+                                        </div>
                                     </p>
                                 </div>
                             </div>

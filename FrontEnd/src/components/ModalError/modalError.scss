@@ -1,0 +1,19 @@
+.container-modal-error {
+    display: flex;
+    width: 431px;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 111px;
+    border-radius: 8px;
+    background: var(--Light-Red, #FF9D9D);
+    box-shadow: 0px 4px 6.6px 0px rgba(0, 0, 0, 0.27);
+    display: flex;
+    justify-content: space-between;
+    text-align: justify;
+
+    p {
+        color: #FFF;
+        font-size: 16px;
+    }
+}

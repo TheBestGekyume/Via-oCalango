@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Card } from '../../../components/Card/Card';
 import { ModalAddViagem } from '../../../components/ModalAddViagem/ModalAddViagem';
 import "./home.scss";
 import axios from 'axios';
+import { ItemNavContext } from '../../../context/itemNavContext';
 
 export function Home() {
   const token = window.sessionStorage.getItem("token");
   const typeUser = Number(window.sessionStorage.getItem("typeUser"));
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [viagens, setViagens] = useState([]); // Controle da lista de viagens
+  const [viagens, setViagens] = useState([]);
+  const { setItemNavdOption} = useContext(ItemNavContext);
 
   const navigate = useNavigate();
 
@@ -42,7 +44,7 @@ export function Home() {
     return (
       <div id='home' className='text-white text-center pt-5'>
         {typeUser === 0 &&
-          <Link to="/passagens" onClick={() => window.sessionStorage.setItem("itemNav", 2)}>
+          <Link to="/passagens" onClick={() => {window.sessionStorage.setItem("itemNav", 2); setItemNavdOption(2)}}>
             <button className='btn btn-lg text-white mb-5' type='button'>
               <h3>COMPRE ANTECIPADO E GANHE 10% DE DESCONTO</h3>
             </button>

@@ -1,7 +1,6 @@
 import React from 'react';
 
 export function ViagemMensagem({ local, viagensFiltradas }) {
-    console.log(viagensFiltradas)
     return (
         <div
             style={viagensFiltradas.length === 1 ? { display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: '3rem' } : null}

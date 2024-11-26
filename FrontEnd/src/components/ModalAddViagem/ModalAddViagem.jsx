@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './modalAddViagem.scss';
 import axios from 'axios';
 
-export function ModalAddViagem({ isOpen, onClose, refreshViagens }) {
+export function ModalAddViagem({ isOpen, onClose, refreshViagens, idViagem }) {
   const [formData, setFormData] = useState({
     origem: '',
     destino: '',
@@ -13,6 +13,34 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens }) {
     imgUrl: ''
   });
 
+  const [error, setError] = useState('');
+  useEffect(() => {
+    if (idViagem) {
+      const fetchViagem = async () => {
+        try {
+          const response = await axios.get(`http://localhost/viacaocalango/BackEnd/crudViagem/exibirViagemPorId.php?id_viagem=${idViagem}`);
+          if (response.data) {
+            setFormData(response.data);
+            console.log('Dados da viagem carregados com sucesso:', response.data);
+          }
+        } catch (error) {
+          console.error('Erro ao carregar os dados da viagem:', error);
+        }
+      };
+      fetchViagem();
+    } else {
+      setFormData({
+        origem: '',
+        destino: '',
+        horario_de_partida: '',
+        data_de_partida: '',
+        preco: '',
+        assentos: '',
+        imgUrl: ''
+      });
+    }
+  }, [idViagem]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -20,15 +48,34 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Verificação para garantir que o número de assentos seja par
+    if (formData.assentos % 2 !== 0 && !idViagem) {
+      setError('O número de assentos deve ser par!');
+      return;
+    }
+
+    // Limpa a mensagem de erro
+    setError('');
+
     try {
-      const response = await axios.post('http://localhost/viacaocalango/BackEnd/crudViagem/criarViagem.php', formData);
-      alert(response.data.success || response.data.error);
-      if (response.data.success) {
-        onClose();
-        refreshViagens(); // Atualiza a lista de viagens após adicionar nova viagem
+      if (idViagem) {
+        // Atualizar viagem existente
+        const response = await axios.put('http://localhost/viacaocalango/BackEnd/crudViagem/editarViagem.php', {
+          id_viagem: idViagem,
+          ...formData
+        });
+        alert(response.data.success || response.data.error);
+      } else {
+        // Criar nova viagem
+        const response = await axios.post('http://localhost/viacaocalango/BackEnd/crudViagem/criarViagem.php', formData);
+        alert(response.data.success || response.data.error);
       }
+
+      onClose();
+      refreshViagens();
     } catch (error) {
-      console.error("Erro ao adicionar viagem", error);
+      console.error('Erro ao salvar a viagem:', error);
     }
   };
 
@@ -36,11 +83,14 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens }) {
 
   return (
     <div className="modal-overlay vw-100">
-      <div className="modal-content w-50">
+      <div className="modal-content w-50 p-3 pb-4 px-5">
         <button className="close-button px-3 m-2 fs-2 rounded-4" onClick={onClose}>X</button>
-        <h2>Adicionar Nova Viagem</h2>
+        <h2 className='text-white'>{idViagem ? 'Editar Viagem' : 'Adicionar Nova Viagem'}</h2>
 
-        <form onSubmit={handleSubmit}>
+        {/* Exibe a mensagem de erro se o número de assentos for ímpar */}
+        {error && <p className="alert alert-danger p-2 mt-2 d-flex mx-auto">{error}</p>}
+
+        <form onSubmit={handleSubmit} className='mt-3'>
           <section className='border-0 d-flex flex-column align-items-center gap-3'>
             <div className='d-flex gap-2 align-items-end'>
               <label className='fs-5 pe-3'>Origem:</label>
@@ -62,16 +112,21 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens }) {
               <label className='fs-5 pe-3'>Preço:</label>
               <input type="number" name="preco" value={formData.preco} onChange={handleChange} required />
             </div>
-            <div className='d-flex gap-2 align-items-end justify-content-start'>
-              <label className='fs-5 pe-3'>Número de Assentos:</label>
-              <input type="number" name="assentos" value={formData.assentos} onChange={handleChange} required />
-            </div>
-            <div className='d-flex gap-2 align-items-end justify-content-start'>
-              <label className='fs-5 pe-3'>URL da Imagem:</label>
-              <input type="text" name="imgUrl" value={formData.imgUrl} onChange={handleChange} required />
-            </div>
+            {!idViagem && (
+              <>
+                <div className='d-flex gap-2 align-items-end justify-content-start'>
+                  <label className='fs-5 pe-3'>Número de Assentos:</label>
+                  <input type="number" name="assentos" value={formData.assentos} onChange={handleChange} required />
+                </div>
+                <div className='d-flex gap-2 align-items-end justify-content-start'>
+                  <label className='fs-5 pe-3'>URL da Imagem:</label>
+                  <input type="text" name="imgUrl" value={formData.imgUrl} onChange={handleChange} required />
+                </div>
+              </>
+            )}
+
           </section>
-          <button type="submit">Adicionar Viagem</button>
+          <button type="submit" className='mt-2'>{idViagem ? 'Salvar Alterações' : 'Adicionar Viagem'}</button>
         </form>
       </div>
     </div>
