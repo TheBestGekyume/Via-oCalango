@@ -49,25 +49,21 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens, idViagem }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verificação para garantir que o número de assentos seja par
     if (formData.assentos % 2 !== 0 && !idViagem) {
       setError('O número de assentos deve ser par!');
       return;
     }
 
-    // Limpa a mensagem de erro
     setError('');
 
     try {
       if (idViagem) {
-        // Atualizar viagem existente
         const response = await axios.put('http://localhost/viacaocalango/BackEnd/crudViagem/editarViagem.php', {
           id_viagem: idViagem,
           ...formData
         });
         alert(response.data.success || response.data.error);
       } else {
-        // Criar nova viagem
         const response = await axios.post('http://localhost/viacaocalango/BackEnd/crudViagem/criarViagem.php', formData);
         alert(response.data.success || response.data.error);
       }
@@ -87,7 +83,6 @@ export function ModalAddViagem({ isOpen, onClose, refreshViagens, idViagem }) {
         <button className="close-button px-3 m-2 fs-2 rounded-4" onClick={onClose}>X</button>
         <h2 className='text-white'>{idViagem ? 'Editar Viagem' : 'Adicionar Nova Viagem'}</h2>
 
-        {/* Exibe a mensagem de erro se o número de assentos for ímpar */}
         {error && <p className="alert alert-danger p-2 mt-2 d-flex mx-auto">{error}</p>}
 
         <form onSubmit={handleSubmit} className='mt-3'>

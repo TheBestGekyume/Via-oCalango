@@ -6,11 +6,7 @@ import "./passagens.scss";
 
 
 export function Passagens() {
-    useEffect(() => {
-       /*  if (token) {
-            window.sessionStorage.setItem("itemNav", 2);
-        } */
-    }, [])
+
     const navigate = useNavigate();
     const token = window.sessionStorage.getItem("token");
     const [local, setLocal] = useState(null);

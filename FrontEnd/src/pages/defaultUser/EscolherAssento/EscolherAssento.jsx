@@ -37,7 +37,6 @@ export function EscolherAssento() {
             return;
         }
 
-        // Requisição para pegar dados da viagem
         axios.get('http://localhost/viacaocalango/BackEnd/crudViagem/listarViagem.php')
             .then((response) => {
                 const viagens = response.data;
@@ -73,9 +72,7 @@ export function EscolherAssento() {
         );
     };
 
-    // Função para enviar os dados da compra
     const handleCompra = async () => {
-        // Envia os assentos selecionados
         const assentosIndisponiveis = assentosSelecionados.map((nro_assento) => ({ nro_assento }));
         const objetoCompra = {
             id_viagem: viagem.id,
@@ -94,7 +91,6 @@ export function EscolherAssento() {
         }
     };
 
-    // Retorna a imagem do assento dependendo do estado de seleção
     const getAssentoImage = (assento) => {
         if (assentosSelecionados.includes(assento.nro_assento)) {
             return selecionado;
@@ -106,7 +102,6 @@ export function EscolherAssento() {
         return <p>Carregando...</p>;
     }
 
-    // Filtra os assentos por fileira
     const fileiraA = viagem.assentos.filter(assento => assento.nro_assento.startsWith('A'));
     const fileiraB = viagem.assentos.filter(assento => assento.nro_assento.startsWith('B'));
     const closeModalError = () => {
