@@ -20,7 +20,7 @@ export function MinhasViagens() {
                 return;
             }
 
-            const viagensResponse = await axios.post('http://localhost/viacaocalango/BackEnd/crudUsuario/listarViagensusuario.php', {
+            const viagensResponse = await axios.post('http://localhost/viacaocalango/BackEnd/crudUsuario/listarViagensUsuario.php', {
                 usuario_id: usuarioId
             });
 
@@ -62,7 +62,7 @@ export function MinhasViagens() {
                                     <p className="card-text">
                                         <strong>Data:</strong> {formatarDataPTBR(viagem.data_de_partida)} <br /> <br />
                                         <strong>Horário:</strong> {viagem.horario_de_partida} <br /> <br />
-                                        <strong>Valor Pago:</strong> R$ {parseFloat(viagem.preco).toFixed(2)} <br /> <br />
+                                        <strong>Valor Pago:</strong> R$ {parseFloat(viagem.preco * viagem.assentos.length).toFixed(2)} <br /> <br />
                                         <strong>Assentos:</strong>
                                         {viagem.assentos && viagem.assentos.length > 0 ? (
                                             viagem.assentos.map((assento, idx) => (
