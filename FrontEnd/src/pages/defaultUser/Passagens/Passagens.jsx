@@ -7,12 +7,9 @@ import "./passagens.scss";
 
 export function Passagens() {
     useEffect(() => {
-        if (Number(window.sessionStorage.getItem("itemNav")) !== 2) {
-            window.location.reload();
-        }
-        if (token) {
+       /*  if (token) {
             window.sessionStorage.setItem("itemNav", 2);
-        }
+        } */
     }, [])
     const navigate = useNavigate();
     const token = window.sessionStorage.getItem("token");
@@ -23,16 +20,15 @@ export function Passagens() {
             navigate('/login');
         }
     }, [token, navigate]);
-    console.log(local)
 
     if (token) {
         return (
             <div className='w-100 h-100 d-flex flex-column align-items-center mt-3 mb-5'>
                 <div className='w-100 px-4'>
-                    <DestinoUser setLocal={setLocal} />
+                    <DestinoUser setLocal={setLocal} local={local}/>
                 </div>
                 <section className='d-flex flex-wrap'>
-                    <PassagemInfo  local={local} />
+                    <PassagemInfo  local={local}/>
                 </section>
             </div>
         );

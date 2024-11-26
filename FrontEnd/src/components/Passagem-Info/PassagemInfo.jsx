@@ -49,6 +49,7 @@ export function PassagemInfo({ local }) {
                 refreshViagens();
             } else {
                 alert(response.data.message || "Erro ao deletar a viagem.");
+                
             }
         } catch (error) {
             console.error("Erro ao deletar a viagem:", error);
@@ -101,7 +102,7 @@ export function PassagemInfo({ local }) {
             <ViagemMensagem local={local} viagensFiltradas={viagensFiltradas} />
 
             {viagensFiltradas.map((viagem, index) => (
-                <section key={index} className='container-passagem-info p-3' style={viagensFiltradas.length === 1 ? { width: '100%' } : {}}>
+                <section key={index} className='container-passagem-info p-3' style={viagensFiltradas.length === 1 ? { width: '600px' } : {}}>
                     <div className="d-flex align-items-start">
                         <img className='map-passagem-info' src={map} alt="Mapa" />
                         <div>
@@ -112,38 +113,38 @@ export function PassagemInfo({ local }) {
                     <div className="d-flex align-items-center">
                         <p>A partir de <strong>R${parseFloat(viagem.preco).toFixed(2)}</strong></p>
 
-                        
+
                     </div>
                     {tipoUsuario === "0" && (
-                            <button
-                                onClick={() => handleVerMais(viagem.id_viagem)}
-                                className='button-horarios-passagem-info'
-                            >
-                                Ver Mais
-                            </button>
-                        )}
+                        <button
+                            onClick={() => handleVerMais(viagem.id_viagem)}
+                            className='button-horarios-passagem-info'
+                        >
+                            Ver Mais
+                        </button>
+                    )}
 
-                        {tipoUsuario === "1" && (
-                            <div className="d-flex flex-column gap-2">
-                                <button
-                                    className='btn bg-warning text-white'
-                                    type='button'
-                                    onClick={() => openModal(viagem.id_viagem)}
-                                >
-                                    Editar
-                                </button>
-                                <button
-                                    className='btn bg-danger text-white'
-                                    type='button'
-                                    onClick={() => deletarViagem(viagem.id_viagem)}
-                                >
-                                    Deletar
-                                </button>
-                            </div>
-                        )}
+                    {tipoUsuario === "1" && (
+                        <div className="d-flex flex-column gap-2">
+                            <button
+                                className='btn bg-warning text-white'
+                                type='button'
+                                onClick={() => openModal(viagem.id_viagem)}
+                            >
+                                Editar
+                            </button>
+                            <button
+                                className='btn bg-danger text-white'
+                                type='button'
+                                onClick={() => deletarViagem(viagem.id_viagem)}
+                            >
+                                Deletar
+                            </button>
+                        </div>
+                    )}
                 </section>
             ))}
-
+            
             <ModalAddViagem
                 isOpen={isModalOpen}
                 onClose={closeModal}
